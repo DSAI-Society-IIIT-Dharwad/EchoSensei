@@ -1,0 +1,567 @@
+{
+  "session_id": "7a5794db",
+  "domain": "healthcare",
+  "created_at": "2026-04-04T21:51:16.432880",
+  "turn": 28,
+  "language": "Auto-Detect",
+  "data": {
+    "symptoms": [
+      {
+        "name": "cramping in the leg",
+        "duration": "unknown",
+        "severity": "unknown"
+      }
+    ]
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-04T21:51:27.636420",
+      "new_data": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      },
+      "user_utterance": "I have a severe headache and a cold.",
+      "ai_response": "Can you tell me more about your cold symptoms, such as congestion or phlegm?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-04T21:51:39.005509",
+      "new_data": {},
+      "user_utterance": "It's like a congestion.",
+      "ai_response": "Have you experienced any difficulty breathing or shortness of breath with this congestion?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-04-04T21:51:49.438165",
+      "new_data": {},
+      "user_utterance": "I have experienced difficulty in breathing for the last two days.",
+      "ai_response": "Have you noticed any chest pain or tightness while experiencing difficulty breathing?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 4,
+      "timestamp": "2026-04-04T21:52:03.103679",
+      "new_data": {},
+      "user_utterance": "Output only testimony",
+      "ai_response": "I couldn't find any relevant information in your statement. Could you please provide more context or clarify what you meant by 'output only testimony'?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 5,
+      "timestamp": "2026-04-04T21:52:10.075356",
+      "new_data": {},
+      "user_utterance": "Output only testimony",
+      "ai_response": "Could you please clarify what you meant by 'output only testimony'? Are you experiencing any other symptoms or issues?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 6,
+      "timestamp": "2026-04-04T21:52:18.734634",
+      "new_data": {},
+      "user_utterance": "No chest pain or dietness.",
+      "ai_response": "Have you experienced any nausea or vomiting with your cold symptoms?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 7,
+      "timestamp": "2026-04-04T21:52:30.802805",
+      "new_data": {},
+      "user_utterance": "No nausea nor vomiting.",
+      "ai_response": "Have you experienced any fever or chills with your cold symptoms?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 8,
+      "timestamp": "2026-04-04T21:52:37.255998",
+      "new_data": {},
+      "user_utterance": "Nothing like that.",
+      "ai_response": "Can you tell me more about your headache symptoms, such as its location or whether it's accompanied by sensitivity to light or sound?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 9,
+      "timestamp": "2026-04-04T21:52:47.005768",
+      "new_data": {},
+      "user_utterance": "No headache only cold.",
+      "ai_response": "You mentioned you have a cold, but no headache. Can you tell me more about your cold symptoms, such as congestion or phlegm?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 10,
+      "timestamp": "2026-04-04T21:52:57.954674",
+      "new_data": {},
+      "user_utterance": "Sorry, I do have a headache, but it occurs only at night.",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 11,
+      "timestamp": "2026-04-04T21:53:12.963933",
+      "new_data": {},
+      "user_utterance": "I do have a headache but it's only at night along with the cold.",
+      "ai_response": "Can you describe the nature of your nighttime headache, such as its severity or whether it's accompanied by any other symptoms?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 12,
+      "timestamp": "2026-04-04T21:53:24.168708",
+      "new_data": {},
+      "user_utterance": "Not so severe but it slightly hurts.",
+      "ai_response": "Can you tell me more about the location of the pain, such as whether it's in the forehead, temples, or the back of the head?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 13,
+      "timestamp": "2026-04-04T21:54:11.196494",
+      "new_data": {},
+      "user_utterance": "I don't have any relevant information to provide.",
+      "ai_response": "Could you please clarify what you meant by 'OUTPUT ONLY TAMIL OUTPUT ONLY TAMIL'? Are you experiencing any other symptoms or issues?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 14,
+      "timestamp": "2026-04-04T21:54:20.676638",
+      "new_data": {},
+      "user_utterance": "I have other symptoms, but I'm not sure what it is.",
+      "ai_response": "Can you describe these other symptoms in more detail, such as their location, severity, or any other characteristics?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 15,
+      "timestamp": "2026-04-04T21:54:27.941620",
+      "new_data": {},
+      "user_utterance": "mostly in the leg region",
+      "ai_response": "Have you experienced any pain or discomfort in the leg region, such as cramping, numbness, or tingling?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 16,
+      "timestamp": "2026-04-04T21:54:33.628539",
+      "new_data": {},
+      "user_utterance": "CRAMPING occurs.",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "severe headache",
+            "duration": "every day",
+            "severity": "severe"
+          },
+          {
+            "name": "cold",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 17,
+      "timestamp": "2026-04-04T21:54:40.014556",
+      "new_data": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      },
+      "user_utterance": "Cramp in the leg occurs.",
+      "ai_response": "Have you experienced any numbness or tingling sensations in the leg region where you're experiencing cramping?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 18,
+      "timestamp": "2026-04-04T21:54:48.860538",
+      "new_data": {},
+      "user_utterance": "KOLD ACAMPANIST IS CRAMP.",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 19,
+      "timestamp": "2026-04-04T21:54:54.963543",
+      "new_data": {},
+      "user_utterance": "\u0b95\u0bcb\u0bb2\u0bcd\u0b9f\u0bbe\u0b95\u0bcd\u0b95\u0bae\u0bcd\u0baa\u0bbf\u0ba9\u0bc7\u0bb8\u0bcd\u0ba4\u0bc1 \u0b95\u0bb0\u0bbe\u0bae\u0bcd\u0baa\u0bcd",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 20,
+      "timestamp": "2026-04-04T21:55:03.399584",
+      "new_data": {},
+      "user_utterance": "The cold accompanies the cramp.",
+      "ai_response": "Can you describe the nature of the cramping in your leg, such as its severity or whether it's accompanied by any other symptoms?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 21,
+      "timestamp": "2026-04-04T21:55:18.196421",
+      "new_data": {},
+      "user_utterance": "OUTPUT ONLY TAMIL.",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 22,
+      "timestamp": "2026-04-04T21:55:23.942744",
+      "new_data": {},
+      "user_utterance": "Not so severe",
+      "ai_response": "Can you tell me more about the nature of the pain, such as whether it's a dull ache or a sharp pain?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 23,
+      "timestamp": "2026-04-04T21:55:30.293326",
+      "new_data": {},
+      "user_utterance": "OUTPUT ONLY TAMIL",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 24,
+      "timestamp": "2026-04-04T21:55:35.282586",
+      "new_data": {},
+      "user_utterance": "IT'S A DULLIK.",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 25,
+      "timestamp": "2026-04-04T21:55:40.938106",
+      "new_data": {},
+      "user_utterance": "It's a dull egg.",
+      "ai_response": "Can you describe the nature of the pain, such as whether it's a dull ache or a sharp pain?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 26,
+      "timestamp": "2026-04-04T21:55:47.883584",
+      "new_data": {},
+      "user_utterance": "IT'S A DAL ACHE.",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 27,
+      "timestamp": "2026-04-04T21:55:55.016614",
+      "new_data": {},
+      "user_utterance": "IT'S D-U-L-L-A-C-H-E.",
+      "ai_response": "I'm having trouble processing that. Could you please repeat what you said?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "turn": 28,
+      "timestamp": "2026-04-04T21:56:00.923546",
+      "new_data": {},
+      "user_utterance": "It's the sharp pain.",
+      "ai_response": "Can you describe the location of the sharp pain, such as whether it's in the head, neck, or any other part of the body?",
+      "cumulative": {
+        "symptoms": [
+          {
+            "name": "cramping in the leg",
+            "duration": "unknown",
+            "severity": "unknown"
+          }
+        ]
+      }
+    }
+  ]
+}
