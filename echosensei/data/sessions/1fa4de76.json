@@ -1,0 +1,73 @@
+{
+  "session_id": "1fa4de76",
+  "domain": "healthcare",
+  "created_at": "2026-04-04T13:28:58.912778",
+  "turn": 3,
+  "language": "Tamil",
+  "data": {
+    "symptoms": [
+      "fever"
+    ],
+    "existing_conditions": [],
+    "past_history": [],
+    "duration": 2
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-04T13:30:07.011615",
+      "new_data": {
+        "symptoms": [
+          "fever"
+        ],
+        "duration": null,
+        "severity": null,
+        "existing_conditions": [],
+        "past_history": []
+      },
+      "user_utterance": "I am having a fever",
+      "cumulative": {
+        "symptoms": [
+          "fever"
+        ],
+        "existing_conditions": [],
+        "past_history": []
+      }
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-04T13:31:41.068768",
+      "new_data": {
+        "duration": 2
+      },
+      "user_utterance": "I have been in the forest for 2 days",
+      "cumulative": {
+        "symptoms": [
+          "fever"
+        ],
+        "existing_conditions": [],
+        "past_history": [],
+        "duration": 2
+      }
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-04-04T13:32:28.717051",
+      "new_data": {
+        "symptoms": [
+          "fever"
+        ],
+        "duration": 2
+      },
+      "user_utterance": "I have a lot of things to do",
+      "cumulative": {
+        "symptoms": [
+          "fever"
+        ],
+        "existing_conditions": [],
+        "past_history": [],
+        "duration": 2
+      }
+    }
+  ]
+}

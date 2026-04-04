@@ -1,0 +1,32 @@
+{
+  "session_id": "e1c3a36b",
+  "domain": "healthcare",
+  "created_at": "2026-04-04T19:55:08.009819",
+  "turn": 1,
+  "language": "Tamil",
+  "data": {
+    "symptoms": "stomach ache",
+    "duration": "for two days",
+    "severity": "very severe"
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-04T19:55:35.273845",
+      "new_data": {
+        "symptoms": "stomach ache",
+        "duration": "for two days",
+        "severity": "very severe",
+        "existing_conditions": "",
+        "past_history": ""
+      },
+      "user_utterance": "\u0b85\u0ba9\u0b95\u0bcd\u0b95\u0bc1 \u0ba8\u0bbe\u0bb3\u0bcd \u0ba8\u0bbe\u0bb3\u0bcd \u0ba4\u0bb2\u0bb5\u0bb2\u0bbf \u0bb0\u0bca\u0bae\u0bcd\u0baa \u0ba4\u0bb2\u0bb5\u0bb2\u0bbf\u0b95\u0bcd\u0b95\u0bbf\u0ba4\u0bc1 \u0b95\u0ba3\u0bcd\u0ba3\u0bc1\u0bae\u0bcd \u0bb5\u0bb2\u0bbf\u0baf\u0bc1\u0bae\u0bcd \u0bb0\u0bca\u0bae\u0bcd\u0baa\u0bbe\u0ba4\u0bbf\u0b95 \u0bae\u0bbe\u0bb0\u0bc1\u0b95\u0bcd\u0b95\u0bc1",
+      "ai_response": "\u0ba4\u0bb2\u0bb5\u0bb2\u0bbf\u0baf\u0bc1\u0b9f\u0ba9\u0bcd \u0b95\u0bc2\u0b9f \u0bb5\u0bc8\u0bb0\u0bb8\u0bcd \u0b85\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1 \u0b95\u0bbe\u0baf\u0bcd\u0b9a\u0bcd\u0b9a\u0bb2\u0bcd \u0b85\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1 \u0bb5\u0baf\u0bbf\u0bb1\u0bcd\u0bb1\u0bc1\u0baa\u0bcd\u0baa\u0bcb\u0b95\u0bcd\u0b95\u0bc1 \u0b89\u0ba3\u0bcd\u0b9f\u0bbe?",
+      "cumulative": {
+        "symptoms": "stomach ache",
+        "duration": "for two days",
+        "severity": "very severe"
+      }
+    }
+  ]
+}

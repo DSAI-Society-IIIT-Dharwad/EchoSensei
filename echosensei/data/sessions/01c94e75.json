@@ -1,0 +1,261 @@
+{
+  "session_id": "01c94e75",
+  "domain": "healthcare",
+  "created_at": "2026-04-04T20:28:03.975372",
+  "turn": 18,
+  "language": "Tamil",
+  "data": {
+    "symptoms": [
+      "vomiting"
+    ],
+    "duration": "2 days",
+    "severity": "unknown"
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-04T20:28:13.366573",
+      "new_data": {},
+      "user_utterance": "I have 24 hours of fever.",
+      "ai_response": "Can you describe the type of pain you're experiencing in your head?",
+      "cumulative": {}
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-04T20:28:21.148365",
+      "new_data": {},
+      "user_utterance": "experiencing in your head",
+      "ai_response": "Can you describe the severity of your headache?",
+      "cumulative": {}
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-04-04T20:29:01.406118",
+      "new_data": {},
+      "user_utterance": "I have a headache",
+      "ai_response": "Can you describe the severity of your headache?",
+      "cumulative": {}
+    },
+    {
+      "turn": 4,
+      "timestamp": "2026-04-04T20:29:10.430920",
+      "new_data": {},
+      "user_utterance": "I have a headache and fever",
+      "ai_response": "Can you describe the severity of your headache?",
+      "cumulative": {}
+    },
+    {
+      "turn": 5,
+      "timestamp": "2026-04-04T20:29:18.388296",
+      "new_data": {
+        "symptoms": [
+          "headache"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      },
+      "user_utterance": "I have a headache for two days",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0ba4\u0bb2\u0bb5\u0bb3\u0bbf\u0baf\u0bbf\u0ba9\u0bcd \u0ba4\u0bbe\u0b95\u0bcd\u0b95\u0ba4\u0bcd\u0ba4\u0bc8 \u0bb5\u0bbf\u0bb5\u0bb0\u0bbf\u0baf\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd?",
+      "cumulative": {
+        "symptoms": [
+          "headache"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 6,
+      "timestamp": "2026-04-04T20:29:25.347040",
+      "new_data": {},
+      "user_utterance": "I have two days of headache and fever",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0bb5\u0bc8\u0bb0\u0bc1\u0bb5\u0bb3\u0bbf\u0baf\u0bbf\u0ba9\u0bcd \u0ba4\u0bbe\u0b95\u0bcd\u0b95\u0ba4\u0bcd\u0ba4\u0bc8 \u0bb5\u0bbf\u0bb5\u0bb0\u0bbf\u0baf\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd?",
+      "cumulative": {
+        "symptoms": [
+          "headache"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 7,
+      "timestamp": "2026-04-04T20:29:35.079858",
+      "new_data": {
+        "symptoms": [
+          "cough"
+        ],
+        "duration": "2 days"
+      },
+      "user_utterance": "I have two days of cough",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0b87\u0bb0\u0bc1\u0bae\u0bb2\u0bbf\u0ba9\u0bcd \u0ba4\u0bbe\u0b95\u0bcd\u0b95\u0ba4\u0bcd\u0ba4\u0bc8 \u0bb5\u0bbf\u0bb5\u0bb0\u0bbf\u0baf\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd?",
+      "cumulative": {
+        "symptoms": [
+          "cough"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 8,
+      "timestamp": "2026-04-04T20:29:44.189672",
+      "new_data": {},
+      "user_utterance": "I have two days of headache and cough",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0ba4\u0bb2\u0bb5\u0bb3\u0bbf\u0baf\u0bbf\u0ba9\u0bcd \u0ba4\u0bbe\u0b95\u0bcd\u0b95\u0ba4\u0bcd\u0ba4\u0bc8 \u0bb5\u0bbf\u0bb5\u0bb0\u0bbf\u0baf\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd?",
+      "cumulative": {
+        "symptoms": [
+          "cough"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 9,
+      "timestamp": "2026-04-04T20:31:08.663760",
+      "new_data": {},
+      "user_utterance": "I have been experiencing headache and vomiting for the past two days",
+      "ai_response": "\u0915\u094d\u092f\u093e \u0906\u092a \u0905\u092a\u0928\u0940 \u0909\u0932\u094d\u091f\u0940 \u0915\u0940 \u0917\u0902\u092d\u0940\u0930\u0924\u093e \u0915\u094b \u0935\u093f\u0938\u094d\u0924\u093e\u0930 \u0938\u0947 \u092c\u0924\u093e \u0938\u0915\u0924\u0947 \u0939\u0948\u0902?",
+      "cumulative": {
+        "symptoms": [
+          "cough"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 10,
+      "timestamp": "2026-04-04T20:31:37.280487",
+      "new_data": {},
+      "user_utterance": "Bar bar feeling unwell",
+      "ai_response": "Can you describe the severity of your vomiting?",
+      "cumulative": {
+        "symptoms": [
+          "cough"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 11,
+      "timestamp": "2026-04-04T20:31:52.650177",
+      "new_data": {},
+      "user_utterance": "It is very severe.",
+      "ai_response": "Have you experienced any difficulty breathing or shortness of breath?",
+      "cumulative": {
+        "symptoms": [
+          "cough"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 12,
+      "timestamp": "2026-04-04T20:32:04.071368",
+      "new_data": {},
+      "user_utterance": "No",
+      "ai_response": "Can you describe the duration of your vomiting?",
+      "cumulative": {
+        "symptoms": [
+          "cough"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 13,
+      "timestamp": "2026-04-04T20:32:21.979629",
+      "new_data": {
+        "symptoms": [
+          "vomiting"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      },
+      "user_utterance": "I have been vomiting for two days",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0b85\u0b9f\u0bbf\u0bb5\u0baf\u0bbf\u0bb1\u0bcd\u0bb1\u0bbf\u0bb2\u0bcd \u0b8e\u0ba8\u0bcd\u0ba4 \u0bb5\u0bb2\u0bbf \u0b85\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1 \u0b85\u0b9a\u0bcc\u0b95\u0bb0\u0bbf\u0baf\u0bae\u0bcd \u0b89\u0bb3\u0bcd\u0bb3\u0ba4\u0bc1?",
+      "cumulative": {
+        "symptoms": [
+          "vomiting"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 14,
+      "timestamp": "2026-04-04T20:32:32.948425",
+      "new_data": {},
+      "user_utterance": "Yes, I have vomiting and a little cough too",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0b85\u0b9f\u0bbf\u0bb5\u0baf\u0bbf\u0bb1\u0bcd\u0bb1\u0bbf\u0bb2\u0bcd \u0b8e\u0ba8\u0bcd\u0ba4 \u0bb5\u0bb2\u0bbf \u0b85\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1 \u0b85\u0b9a\u0bcc\u0b95\u0bb0\u0bbf\u0baf\u0bae\u0bcd \u0b89\u0bb3\u0bcd\u0bb3\u0ba4\u0bc1?",
+      "cumulative": {
+        "symptoms": [
+          "vomiting"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 15,
+      "timestamp": "2026-04-04T20:32:58.064822",
+      "new_data": {},
+      "user_utterance": "I have abdominal pain",
+      "ai_response": "Can you describe the severity of your abdominal pain?",
+      "cumulative": {
+        "symptoms": [
+          "vomiting"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 16,
+      "timestamp": "2026-04-04T20:33:11.665654",
+      "new_data": {},
+      "user_utterance": "I am feeling very bad, but I don't know what's happening, and she is not here",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0b85\u0ba9\u0bc1\u0baa\u0bb5\u0bbf\u0b95\u0bcd\u0b95\u0bc1\u0bae\u0bcd \u0b85\u0bb1\u0bbf\u0b95\u0bc1\u0bb1\u0bbf\u0b95\u0bb3\u0bc8 \u0bb5\u0bbf\u0bb5\u0bb0\u0bbf\u0baf\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd, \u0b85\u0ba4\u0bbe\u0bb5\u0ba4\u0bc1 \u0bb5\u0bc6\u0baa\u0bcd\u0baa\u0ba8\u0bbf\u0bb2\u0bc8, \u0ba4\u0bb2\u0bb5\u0bb3\u0bbf \u0b85\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1 \u0b89\u0bb3\u0bcd\u0bb3\u0bc0\u0b9f\u0bc1 \u0baa\u0bcb\u0ba9\u0bcd\u0bb1\u0bb5\u0bc8?",
+      "cumulative": {
+        "symptoms": [
+          "vomiting"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 17,
+      "timestamp": "2026-04-04T20:33:38.424683",
+      "new_data": {},
+      "user_utterance": "What's happening to me vomiting rumba thikama irukku pastu desa",
+      "ai_response": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0b85\u0b9f\u0bbf\u0bb5\u0baf\u0bbf\u0bb1\u0bcd\u0bb1\u0bbf\u0bb2\u0bcd \u0b8e\u0ba8\u0bcd\u0ba4 \u0bb5\u0bb2\u0bbf \u0b85\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1 \u0b85\u0b9a\u0bcc\u0b95\u0bb0\u0bbf\u0baf\u0bae\u0bcd \u0b89\u0bb3\u0bcd\u0bb3\u0ba4\u0bc1?",
+      "cumulative": {
+        "symptoms": [
+          "vomiting"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    },
+    {
+      "turn": 18,
+      "timestamp": "2026-04-04T20:33:54.156038",
+      "new_data": {},
+      "user_utterance": "I am feeling unwell",
+      "ai_response": "\u0ba8\u0bc0\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0b95\u0bb3\u0bc8\u0baa\u0bcd\u0baa\u0bc8 \u0b85\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1 \u0ba4\u0bb2\u0bc8\u0bb5\u0bb2\u0bbf \u0b85\u0ba9\u0bc1\u0baa\u0bb5\u0bbf\u0ba4\u0bcd\u0ba4\u0bc1\u0bb3\u0bcd\u0bb3\u0bc0\u0bb0\u0bcd\u0b95\u0bb3\u0bbe?",
+      "cumulative": {
+        "symptoms": [
+          "vomiting"
+        ],
+        "duration": "2 days",
+        "severity": "unknown"
+      }
+    }
+  ]
+}

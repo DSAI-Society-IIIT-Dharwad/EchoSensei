@@ -1,0 +1,33 @@
+{
+  "session_id": "74e79107",
+  "domain": "healthcare",
+  "created_at": "2026-04-04T16:26:32.163762",
+  "turn": 1,
+  "language": "Tamil",
+  "data": {
+    "symptoms": [
+      "fever"
+    ],
+    "duration": 2
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-04T16:28:58.936546",
+      "new_data": {
+        "symptoms": [
+          "fever"
+        ],
+        "duration": 2,
+        "severity": ""
+      },
+      "user_utterance": "I have a fever for 2 days",
+      "cumulative": {
+        "symptoms": [
+          "fever"
+        ],
+        "duration": 2
+      }
+    }
+  ]
+}

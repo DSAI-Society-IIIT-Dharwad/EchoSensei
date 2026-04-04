@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoSensei — AI Conversational Intelligence Platform</title>
+    <meta name="description" content="EchoSensei: Multilingual AI-powered conversational intelligence platform for healthcare, financial, and survey workflows.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css?v=5">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+</head>
+<body>
+    <!-- ═══ EKG HEARTBEAT LOADER ═══ -->
+    <div id="loader">
+        <canvas id="ekg-canvas"></canvas>
+        <div class="loader-center">
+            <div class="logo-container loader-logo-container">
+                <img src="logo.png" alt="EchoSensei" class="loader-logo" id="loader-logo">
+            </div>
+            <h1 class="loader-brand">ECHO<span>SENSEI</span></h1>
+            <div class="loader-sub">CONVERSATIONAL INTELLIGENCE PLATFORM</div>
+            <div class="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
+            <div class="loader-boot" id="loader-boot">
+                <span id="lb1">► neural_core.init() <em>OK</em></span>
+                <span id="lb2">► asr_engine.load() <em>OK</em></span>
+                <span id="lb3">► rag_engine.init() — vector index <em>READY</em></span>
+                <span id="lb4">► llm_pipeline.connect() <em>OK</em></span>
+                <span id="lb5">► systems nominal.<b class="blink">_</b></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ AMBIENT BG ORBS ═══ -->
+    <div class="ambient-bg" id="ambient-bg">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+        <div class="orb orb4"></div>
+        <div class="orb orb5"></div>
+    </div>
+
+    <!-- ═══ PARTICLE FIELD ═══ -->
+    <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+    <!-- ═══ LANDING PAGE HERO ═══ -->
+    <div id="landing-page" class="landing-page hidden">
+        <div class="landing-content">
+            <h1 class="hero-title">
+                Transform <span class="gradient-teal glow-text">Healthcare</span><br>
+                Conversations with <span class="gradient-mag glow-text">AI</span>
+            </h1>
+            <p class="hero-desc">
+                Speak in any language. EchoSensei understands, identifies, and generates structured medical notes powered by explainable AI with real-time tracking.
+            </p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number gradient-teal">50</span>
+                    <span class="stat-label">Languages</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number stat-green">98%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number stat-green">10K+</span>
+                    <span class="stat-label">Reports Generated</span>
+                </div>
+            </div>
+
+            <div class="hero-actions">
+                <button id="start-speaking-btn" class="btn-start-speaking">
+                    <i class="fas fa-microphone"></i> Start Speaking
+                </button>
+                <button class="btn-learn-more">
+                    <i class="fas fa-play-circle"></i> Learn More
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- ═══ TOP NAVBAR ═══ -->
+    <nav id="navbar" class="glass-nav hidden-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo-container nav-logo-container">
+                    <img src="logo.png" alt="ES" class="nav-logo">
+                </div>
+                <span class="nav-name">ECHO<span>SENSEI</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-tab="dashboard"><i class="fas fa-border-all"></i> Dashboard</a>
+                <a href="#" class="nav-link" data-tab="sensei"><i class="fas fa-brain"></i> Sensei AI</a>
+                <a href="#" class="nav-link" data-tab="history"><i class="fas fa-clock-rotate-left"></i> History</a>
+                <a href="#" class="nav-link" data-tab="timeline"><i class="fas fa-chart-line"></i> Analytics</a>
+                <a href="#" class="nav-link" data-tab="about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+            <div class="nav-metrics">
+                <div class="nav-domain-pill" id="nav-domain-pill"><i class="fas fa-stethoscope"></i> <span id="nav-domain-label">Healthcare</span></div>
+                <div class="nav-session"><i class="fas fa-fingerprint"></i> <span id="session-display">—</span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══ APP MAIN ═══ -->
+    <div id="app" class="app-hidden">
+        <main class="content">
+
+            <section class="pg active" id="pg-dashboard">
+                <div class="dash-grid">
+                    <!-- Control Bar -->
+                    <div class="control-bar">
+                        <div style="flex:1;"></div>
+                        <button class="neo-btn new-session-btn" id="new-session-btn" style="margin-left: auto;"><i class="fas fa-plus"></i> New Session</button>
+                    </div>
+
+                    <!-- Stats Row — 4 clean cards -->
+                    <div class="stats-row">
+                        <div class="stat-card glass-panel" style="--delay:.1s">
+                            <div class="stat-icon" style="--accent: var(--cyan)"><i class="fas fa-microphone-lines"></i></div>
+                            <div class="stat-info"><span class="stat-val" id="stat-sessions">0</span><span class="stat-label">Sessions</span></div>
+                        </div>
+                        <div class="stat-card glass-panel" style="--delay:.15s">
+                            <div class="stat-icon" style="--accent: var(--mag)"><i class="fas fa-language"></i></div>
+                            <div class="stat-info"><span class="stat-val">4</span><span class="stat-label">Languages</span></div>
+                        </div>
+                        <div class="stat-card glass-panel" style="--delay:.2s">
+                            <div class="stat-icon" style="--accent: var(--green)"><i class="fas fa-shield-halved"></i></div>
+                            <div class="stat-info"><span class="stat-val">100%</span><span class="stat-label">Privacy</span></div>
+                        </div>
+                        <div class="stat-card glass-panel" style="--delay:.22s">
+                            <div class="stat-icon" style="--accent: var(--orange)"><i class="fas fa-bolt"></i></div>
+                            <div class="stat-info"><span class="stat-val" id="stat-turns">0</span><span class="stat-label">Turns</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Sensei Hero Card -->
+                    <div class="dcard sensei-card glass-panel" id="d-sensei" style="--delay:.25s">
+                        <div class="sensei-row">
+                            <div class="sensei-info">
+                                <h2 class="sensei-name">SENSEI <span>AI</span></h2>
+                                <p class="sensei-msg" id="sensei-msg">I'm Sensei, your AI assistant. Speak or type — I'll analyze and extract structured data in real time.</p>
+                                <p class="sensei-msg-sub hidden" id="sensei-msg-sub"></p>
+                                <div class="sensei-dots hidden" id="sensei-dots"><span></span><span></span><span></span></div>
+                            </div>
+                        </div>
+                        <div class="sensei-status">
+                            <div class="sensei-diag hidden" id="sensei-diag"><i class="fas fa-stethoscope"></i> Possibilities: <strong id="diag-val">—</strong></div>
+                            <div class="sensei-alert hidden" id="sensei-alert"><i class="fas fa-exclamation-triangle"></i> Professional Supervision Recommended</div>
+                        </div>
+                    </div>
+
+                    <!-- Voice + Text Input Card -->
+                    <div class="dcard voice-card glass-panel" id="d-voice" style="--delay:.3s">
+                        <div class="dcard-head">
+                            <h3><i class="fas fa-waveform-lines"></i> VOICE & TEXT INPUT</h3>
+                            <select id="input-lang" class="neo-select">
+                                <option value="auto">Auto Detect</option>
+                                <option value="en">English</option>
+                                <option value="hi">Hindi</option>
+                                <option value="ta">Tamil</option>
+                                <option value="kn">Kannada</option>
+                            </select>
+                        </div>
+                        <div class="voice-stage" id="mic-area">
+                            <canvas id="voice-wave" class="voice-wave"></canvas>
+                            <div class="mic-ripple rp1"></div>
+                            <div class="mic-ripple rp2"></div>
+                            <button class="mic-btn" id="mic-btn"><i class="fas fa-microphone" id="mic-icon"></i></button>
+                        </div>
+                        <div class="text-input-bar">
+                            <input type="text" id="text-input" class="text-input" placeholder="Or type your message here...">
+                            <button class="send-btn" id="send-text-btn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                        <div class="voice-foot">
+                            <span class="vpill" id="v-status">Ready</span>
+                            <span class="vpill mono" id="v-dur">0:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Transcription Card -->
+                    <div class="dcard trans-card glass-panel" id="d-trans" style="--delay:.35s">
+                        <div class="dcard-head">
+                            <h3><i class="fas fa-language"></i> TRANSCRIPTION</h3>
+                            <span class="badge" id="det-lang">—</span>
+                        </div>
+                        <div class="dcard-body scroll" id="trans-out">
+                            <div class="empty-state"><i class="fas fa-satellite-dish"></i><p>Awaiting voice signal...</p></div>
+                        </div>
+                        <div class="dcard-foot">
+                            <div class="metric"><label>WORDS</label><span id="m-words">0</span></div>
+                            <div class="metric"><label>CHARS</label><span id="m-chars">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Report / Entities Card -->
+                    <div class="dcard report-card glass-panel" id="d-report" style="--delay:.4s">
+                        <div class="dcard-head">
+                            <h3><i class="fas fa-file-medical"></i> <span id="report-title">EXTRACTED ENTITIES</span></h3>
+                            <div class="head-btn-group" style="display:flex; gap:8px;">
+                                <button class="neo-btn-sm" id="edit-toggle-btn"><i class="fas fa-pen"></i> Edit</button>
+                                <button class="neo-btn-sm" id="dashboard-report-btn"><i class="fas fa-file-invoice"></i> Report</button>
+                            </div>
+                        </div>
+                        <div class="dcard-body scroll" id="report-empty">
+                            <div class="empty-state"><i class="fas fa-dna"></i><p>No entities extracted yet</p></div>
+                        </div>
+                        <div class="dcard-body scroll hidden" id="report-grid"></div>
+                    </div>
+
+                    <!-- ═══ RAG PANEL — Full Width ═══ -->
+                    <div class="dcard rag-panel glass-panel" id="rag-panel" style="--delay:.45s; grid-column: 1 / -1;">
+                        <div class="dcard-head">
+                            <h3><i class="fas fa-brain"></i> RAG — RETRIEVAL-AUGMENTED GENERATION</h3>
+                            <div class="rag-status-pills">
+                                <span class="rag-badge rag-active" id="rag-model-badge"><i class="fas fa-circle"></i> Model Active</span>
+                                <span class="rag-badge" id="rag-index-badge"><i class="fas fa-database"></i> <span id="rag-index-count">0</span> chunks indexed</span>
+                                <span class="rag-badge"><i class="fas fa-book-medical"></i> AI4Bharat Dataset</span>
+                            </div>
+                        </div>
+                        <div class="rag-body">
+                            <!-- Simple Explanation -->
+                            <div class="rag-explain">
+                                <p><strong>How does RAG work? (In simple terms)</strong></p>
+                                <p>Imagine you're a doctor. Before diagnosing a new patient, you check their <strong>previous medical records</strong> and think about <strong>similar cases</strong> you've seen before. That's exactly what RAG does for Sensei AI:</p>
+                                <ol class="rag-explain-steps">
+                                    <li><strong>You speak or type</strong> your symptoms</li>
+                                    <li>RAG <strong>searches</strong> through a database of clinical knowledge (from <em>AI4Bharat</em>) and past patient sessions</li>
+                                    <li>It finds the <strong>most similar</strong> medical cases using AI-powered semantic matching</li>
+                                    <li>This relevant context is <strong>injected into the AI's prompt</strong> — so it "remembers" similar cases</li>
+                                    <li>The AI gives a <strong>more accurate, grounded response</strong> because it has reference data</li>
+                                </ol>
+                                <p style="margin-top:8px; font-size:.75rem; color:var(--txt3);">📚 Clinical knowledge base sourced from <strong style="color:var(--purple)">AI4Bharat</strong> — covering 20+ Indian clinical conditions in English & Hindi (dengue, TB, malaria, diabetes, hypertension, and more).</p>
+                            </div>
+
+                            <!-- Pipeline Flow -->
+                            <div class="rag-flow-mini">
+                                <div class="rag-step"><i class="fas fa-comment-medical"></i><span>User Query</span></div>
+                                <div class="rag-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="rag-step rag-step-active"><i class="fas fa-magnifying-glass"></i><span>Semantic Search</span></div>
+                                <div class="rag-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="rag-step"><i class="fas fa-file-circle-check"></i><span>Retrieve Context</span></div>
+                                <div class="rag-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="rag-step"><i class="fas fa-wand-magic-sparkles"></i><span>Augment Prompt</span></div>
+                                <div class="rag-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="rag-step"><i class="fas fa-robot"></i><span>LLM Response</span></div>
+                            </div>
+
+                            <!-- Live Context Display -->
+                            <div class="rag-context-live" id="rag-context-live">
+                                <div class="rag-context-empty"><i class="fas fa-satellite-dish"></i> Waiting for first query — RAG context will appear here in real time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ SENSEI CHAT PAGE ═══ -->
+            <section class="pg" id="pg-sensei">
+                <div class="chat-layout">
+                    <div class="chat-shell glass-panel">
+                        <div class="chat-header">
+                            <div class="ch-left">
+                                <div class="logo-container ch-logo-container">
+                                    <img src="logo.png" class="ch-logo">
+                                </div>
+                                <h3>SENSEI AI</h3>
+                            </div>
+                            <div class="ch-btns">
+                                <button class="neo-btn" id="pdf-btn"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                                <button class="neo-btn" id="clear-btn"><i class="fas fa-eraser"></i> Clear</button>
+                            </div>
+                        </div>
+                        <div class="chat-feed" id="chat-feed">
+                            <div class="msg-ai msg">
+                                <div class="msg-bub"><p>Namaste! I am Sensei. Speak or type your message — I'll analyze it in real time.</p></div>
+                            </div>
+                        </div>
+                        <div class="chat-bar">
+                            <button class="chat-mic" id="chat-mic"><i class="fas fa-microphone"></i></button>
+                            <input type="text" id="chat-text-input" class="chat-text-field" placeholder="Type a message to Sensei...">
+                            <button class="chat-send" id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+                            <div class="chat-dots hidden" id="chat-dots"><span></span><span></span><span></span></div>
+                        </div>
+                    </div>
+                    <div class="chat-sidebar glass-panel">
+                        <h3 class="sidebar-title"><i class="fas fa-clipboard-check"></i> LIVE ENTITIES</h3>
+                        <div class="sidebar-entities" id="sidebar-entities">
+                            <div class="empty-state small"><i class="fas fa-dna"></i><p>Start a conversation</p></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ HISTORY PAGE ═══ -->
+            <section class="pg" id="pg-history">
+                <div class="history-container">
+                    <div class="history-head">
+                        <h1>SESSION <span>HISTORY</span></h1>
+                        <p>Search and review your past interactions</p>
+                    </div>
+                    <div class="history-toolbar">
+                        <div class="search-bar glass-panel">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="history-search" placeholder="Search sessions...">
+                        </div>
+                    </div>
+                    <div class="sessions-grid" id="sessions-grid">
+                        <div class="empty-state"><i class="fas fa-folder-open"></i><p>No sessions yet. Start a conversation!</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ ANALYTICS / TIMELINE PAGE ═══ -->
+            <section class="pg" id="pg-timeline">
+                <div class="analytics-container">
+                    <div class="analytics-head">
+                        <h1>ANALYTICS <span>DASHBOARD</span></h1>
+                        <p>Insights across all conversations</p>
+                    </div>
+                    <div class="analytics-grid">
+                        <div class="analytics-card glass-panel" style="--delay:.1s">
+                            <h3>LANGUAGE STATS</h3>
+                            <div class="chart-container" id="lang-chart"></div>
+                        </div>
+                        <div class="analytics-card glass-panel" style="--delay:.15s">
+                            <h3>CLINICAL REASONING TIMELINE</h3>
+                            <div class="tl-track" id="tl-track"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ ABOUT PAGE ═══ -->
+            <section class="pg" id="pg-about">
+                <div class="about-container glass-panel">
+                    <div class="about-hero">
+                        <div class="logo-container about-logo-container">
+                            <img src="logo.png" class="about-logo">
+                        </div>
+                        <h2>ECHOSENSEI</h2>
+                        <p class="about-tagline">AI-Powered Multilingual Conversational Intelligence Platform</p>
+                    </div>
+                    <div class="about-features">
+                        <div class="feat-card"><i class="fas fa-microphone-lines"></i><h4>Voice-First</h4><p>Speak in Hindi, Tamil, Kannada, or English.</p></div>
+                        <div class="feat-card"><i class="fas fa-stethoscope"></i><h4>Clinical Focus</h4><p>Trained specifically for medical interactions.</p></div>
+                        <div class="feat-card"><i class="fas fa-brain"></i><h4>AI Akinator</h4><p>Conversational follow-ups to extract structured data.</p></div>
+                        <div class="feat-card"><i class="fas fa-language"></i><h4>Code-Mixed</h4><p>Handles mixed-language speech seamlessly.</p></div>
+                        <div class="feat-card"><i class="fas fa-chart-line"></i><h4>Analytics</h4><p>Visit longitudinal insights across sessions.</p></div>
+                        <div class="feat-card"><i class="fas fa-pen-to-square"></i><h4>Editable Review</h4><p>Validate and correct AI-extracted data in real time.</p></div>
+                    </div>
+                    <div class="about-arch">
+                        <h3>SYSTEM ARCHITECTURE</h3>
+                        <div class="arch-flow">
+                            <div class="arch-node"><i class="fas fa-microphone"></i><span>ASR</span></div>
+                            <div class="arch-arrow"><i class="fas fa-arrow-right"></i></div>
+                            <div class="arch-node arch-node-rag"><i class="fas fa-magnifying-glass"></i><span>RAG</span></div>
+                            <div class="arch-arrow"><i class="fas fa-arrow-right"></i></div>
+                            <div class="arch-node"><i class="fas fa-brain"></i><span>LLM</span></div>
+                            <div class="arch-arrow"><i class="fas fa-arrow-right"></i></div>
+                            <div class="arch-node"><i class="fas fa-database"></i><span>Extract</span></div>
+                            <div class="arch-arrow"><i class="fas fa-arrow-right"></i></div>
+                            <div class="arch-node"><i class="fas fa-volume-high"></i><span>TTS</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js?v=5"></script>
+</body>
+</html>

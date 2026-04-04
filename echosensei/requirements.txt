@@ -1,0 +1,14 @@
+flask==3.1.0
+flask-cors
+gunicorn==23.0.0
+# The torch block below forces CPU-only install to prevent Render from running out of memory
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchaudio
+transformers
+numpy
+openai-whisper
+langdetect
+imageio-ffmpeg
+requests
+deep-translator

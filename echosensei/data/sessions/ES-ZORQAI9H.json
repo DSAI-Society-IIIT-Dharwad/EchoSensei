@@ -1,0 +1,167 @@
+{
+  "session_id": "ES-ZORQAI9H",
+  "domain": "healthcare",
+  "created_at": "2026-04-02T22:26:30.597243",
+  "turn": 8,
+  "data": {
+    "symptoms": [
+      "Fear of water"
+    ],
+    "duration": "Unknown",
+    "severity": "Mild",
+    "existing_conditions": []
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-02T22:26:30.597243",
+      "new_data": {
+        "symptoms": null,
+        "duration": null,
+        "severity": null,
+        "existing_conditions": null
+      },
+      "cumulative": {}
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-02T22:27:03.616251",
+      "new_data": {
+        "symptoms": [
+          "Fever"
+        ]
+      },
+      "cumulative": {
+        "symptoms": [
+          "Fever"
+        ]
+      }
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-04-02T22:30:25.242795",
+      "new_data": {
+        "symptoms": [
+          "Fear",
+          "Anxiety"
+        ],
+        "duration": "Two days ago",
+        "severity": null,
+        "existing_conditions": null
+      },
+      "cumulative": {
+        "symptoms": [
+          "Fear",
+          "Anxiety"
+        ],
+        "duration": "Two days ago"
+      }
+    },
+    {
+      "turn": 4,
+      "timestamp": "2026-04-02T22:32:01.406977",
+      "new_data": {
+        "symptoms": [
+          "Phobia",
+          "Specific phobia"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "Phobia",
+          "Specific phobia"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 5,
+      "timestamp": "2026-04-02T22:32:49.176274",
+      "new_data": {
+        "symptoms": [
+          "Dog bite"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "Dog bite"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 6,
+      "timestamp": "2026-04-02T22:34:00.293700",
+      "new_data": {
+        "symptoms": [
+          "Phobia",
+          "Anxiety"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "Phobia",
+          "Anxiety"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 7,
+      "timestamp": "2026-04-02T22:35:07.481873",
+      "new_data": {
+        "symptoms": [
+          "Panic",
+          "Fear"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "Panic",
+          "Fear"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 8,
+      "timestamp": "2026-04-02T22:37:25.812353",
+      "new_data": {
+        "symptoms": [
+          "Fear of water"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "Fear of water"
+        ],
+        "duration": "Unknown",
+        "severity": "Mild",
+        "existing_conditions": []
+      }
+    }
+  ]
+}

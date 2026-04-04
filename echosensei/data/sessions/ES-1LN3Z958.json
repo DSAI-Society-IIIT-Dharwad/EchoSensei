@@ -1,0 +1,133 @@
+{
+  "session_id": "ES-1LN3Z958",
+  "domain": "healthcare",
+  "created_at": "2026-04-02T22:16:44.162255",
+  "turn": 5,
+  "data": {
+    "symptoms": "Shortness of breath",
+    "duration": {
+      "range": [
+        "morning",
+        "afternoon",
+        "night"
+      ]
+    },
+    "existing_conditions": []
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-02T22:16:44.164256",
+      "new_data": {
+        "symptoms": [
+          "Headache"
+        ],
+        "duration": {
+          "range": [
+            "2 days",
+            "1 day"
+          ]
+        },
+        "severity": "",
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "Headache"
+        ],
+        "duration": {
+          "range": [
+            "2 days",
+            "1 day"
+          ]
+        },
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-02T22:20:07.296837",
+      "new_data": {
+        "symptoms": []
+      },
+      "cumulative": {
+        "symptoms": [],
+        "duration": {
+          "range": [
+            "2 days",
+            "1 day"
+          ]
+        },
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-04-02T22:22:47.943808",
+      "new_data": {
+        "symptoms": [
+          "fever"
+        ],
+        "duration": null,
+        "severity": null,
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "fever"
+        ],
+        "duration": {
+          "range": [
+            "2 days",
+            "1 day"
+          ]
+        },
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 4,
+      "timestamp": "2026-04-02T22:23:26.825826",
+      "new_data": {
+        "symptoms": []
+      },
+      "cumulative": {
+        "symptoms": [],
+        "duration": {
+          "range": [
+            "2 days",
+            "1 day"
+          ]
+        },
+        "existing_conditions": []
+      }
+    },
+    {
+      "turn": 5,
+      "timestamp": "2026-04-02T22:24:17.367131",
+      "new_data": {
+        "symptoms": "Shortness of breath",
+        "duration": {
+          "range": [
+            "morning",
+            "afternoon",
+            "night"
+          ]
+        },
+        "severity": null,
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": "Shortness of breath",
+        "duration": {
+          "range": [
+            "morning",
+            "afternoon",
+            "night"
+          ]
+        },
+        "existing_conditions": []
+      }
+    }
+  ]
+}

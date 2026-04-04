@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoSensei — AI Medical Akinator</title>
+    <meta name="description" content="EchoSensei: Privacy-first AI medical assistant powered by AI4Bharat and LLaMA-3. Speak in Hindi, Tamil, Kannada or English.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==================== LOADER ==================== -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-heartbeat">
+                <svg class="ekg-line" viewBox="0 0 400 100" preserveAspectRatio="none">
+                    <path class="ekg-path" d="M0,50 L80,50 L100,50 L110,10 L120,90 L130,20 L140,70 L155,50 L200,50 L220,50 L230,15 L240,85 L250,25 L260,65 L275,50 L400,50"/>
+                </svg>
+            </div>
+            <div class="loader-icon-wrapper">
+                <i class="fas fa-umbrella"></i>
+            </div>
+            <h2 class="loader-title">EchoSensei</h2>
+            <p class="loader-subtitle">Initializing Sensei AI Engine<span class="dot-anim">...</span></p>
+            <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- ==================== BACKGROUND ==================== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand" id="nav-brand">
+                <div class="nav-logo"><i class="fas fa-umbrella"></i></div>
+                <span class="nav-name">EchoSensei</span>
+            </a>
+            <div class="nav-links">
+                <a href="#dashboard" class="nav-link active" data-tab="dashboard"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#sensei" class="nav-link" data-tab="sensei"><i class="fas fa-user-doctor"></i> Sensei</a>
+                <a href="#history" class="nav-link" data-tab="history"><i class="fas fa-clock-rotate-left"></i> History</a>
+                <a href="#about" class="nav-link" data-tab="about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== MAIN APP ==================== -->
+    <main id="app-main">
+
+        <!-- ===== DASHBOARD TAB ===== -->
+        <section id="tab-dashboard" class="tab-page active">
+            <div class="dashboard-grid">
+
+                <!-- Quick Stats Row -->
+                <div class="stats-row">
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="--accent: #00e5ff"><i class="fas fa-microphone-lines"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-sessions">0</span>
+                            <span class="stat-label">Sessions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="--accent: #a855f7"><i class="fas fa-language"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value">4</span>
+                            <span class="stat-label">Languages</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="--accent: #10b981"><i class="fas fa-shield-halved"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Private</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon" style="--accent: #f43f5e"><i class="fas fa-brain"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-engine">AI4B</span>
+                            <span class="stat-label">Engine</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Recording Card -->
+                <div class="recording-card glass-card" id="recording-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-wave-square"></i> Voice Capture</h3>
+                        <div class="card-controls">
+                            <select id="input-language" class="lang-select" title="Speech language">
+                                <option value="auto">🌐 Auto</option>
+                                <option value="en">🇬🇧 English</option>
+                                <option value="hi">🇮🇳 Hindi</option>
+                                <option value="ta">🇮🇳 Tamil</option>
+                                <option value="kn">🇮🇳 Kannada</option>
+                            </select>
+                            <span class="status-pill" id="voice-status">Ready</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="waveform-container">
+                            <canvas id="waveform-canvas"></canvas>
+                        </div>
+                        <div class="mic-area">
+                            <div class="mic-ring" id="mic-ring-1"></div>
+                            <div class="mic-ring" id="mic-ring-2"></div>
+                            <button class="mic-button" id="mic-button" aria-label="Toggle microphone">
+                                <i class="fas fa-microphone" id="mic-icon"></i>
+                            </button>
+                        </div>
+                        <div class="recording-meta">
+                            <span class="meta-pill"><i class="fas fa-globe"></i> <span id="detected-language">Auto-Detect</span></span>
+                            <span class="meta-pill"><i class="fas fa-clock"></i> <span id="recording-duration">0:00</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transcription Card -->
+                <div class="transcription-card glass-card" id="transcription-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-closed-captioning"></i> Transcription</h3>
+                        <div class="card-controls">
+                            <button class="icon-btn" id="copy-transcription" title="Copy"><i class="fas fa-copy"></i></button>
+                            <button class="icon-btn" id="clear-transcription" title="Clear"><i class="fas fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="transcription-output" id="transcription-output">
+                            <div class="empty-state">
+                                <div class="radar-icon"><i class="fas fa-satellite-dish"></i></div>
+                                <p>Waiting for voice input...</p>
+                            </div>
+                        </div>
+                        <div class="transcription-meta" id="transcription-meta">
+                            <span id="word-count"><i class="fas fa-font"></i> 0 words</span>
+                            <span id="char-count"><i class="fas fa-text-width"></i> 0 chars</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Report Card -->
+                <div class="report-card glass-card" id="report-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-medical"></i> Medical Report</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="report-empty" id="report-empty">
+                            <div class="radar-icon"><i class="fas fa-heartbeat"></i></div>
+                            <p>Medical entities will appear here</p>
+                        </div>
+                        <div class="report-grid" id="report-grid" style="display:none;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== SENSEI TAB ===== -->
+        <section id="tab-sensei" class="tab-page">
+            <div class="sensei-container">
+                <div class="sensei-avatar-area">
+                    <div class="sensei-avatar">
+                        <i class="fas fa-umbrella"></i>
+                        <div class="avatar-ring"></div>
+                    </div>
+                    <h2 class="sensei-name">Sensei</h2>
+                    <p class="sensei-subtitle">Your AI Medical Advisor</p>
+                </div>
+
+                <div class="sensei-chat glass-card" id="sensei-chat">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-msg sensei-msg">
+                            <div class="msg-avatar"><i class="fas fa-umbrella"></i></div>
+                            <div class="msg-bubble">
+                                <p>Namaste! I am <strong>Sensei</strong>, your AI medical advisor. Speak into the microphone on the Dashboard tab, and I will analyze your symptoms to help identify potential conditions.</p>
+                                <span class="msg-time">Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sensei-triage glass-card" id="sensei-triage" style="display:none;">
+                    <div class="triage-header">
+                        <i class="fas fa-triangle-exclamation"></i>
+                        <span>Triage Assessment</span>
+                    </div>
+                    <div class="triage-body">
+                        <div class="triage-item">
+                            <span class="triage-label">Diagnosis Guess</span>
+                            <span class="triage-value" id="triage-diagnosis">—</span>
+                        </div>
+                        <div class="triage-item">
+                            <span class="triage-label">Doctor Required</span>
+                            <span class="triage-value" id="triage-doctor">—</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== HISTORY TAB ===== -->
+        <section id="tab-history" class="tab-page">
+            <div class="history-container">
+                <div class="history-empty glass-card" id="history-list">
+                    <div class="radar-icon"><i class="fas fa-clock-rotate-left"></i></div>
+                    <p>No sessions recorded yet. Start by speaking on the Dashboard.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT TAB ===== -->
+        <section id="tab-about" class="tab-page">
+            <div class="about-container">
+                <div class="about-hero glass-card">
+                    <div class="about-logo"><i class="fas fa-umbrella"></i></div>
+                    <h2>EchoSensei</h2>
+                    <p class="about-tagline">Privacy-First AI Medical Intelligence</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-microphone-lines"></i>
+                            <h4>Voice-First</h4>
+                            <p>Speak naturally in Hindi, Tamil, Kannada, or English</p>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-shield-halved"></i>
+                            <h4>100% Offline</h4>
+                            <p>All AI processing happens locally on your machine</p>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-user-doctor"></i>
+                            <h4>Medical Akinator</h4>
+                            <p>Conversational follow-ups to narrow down diagnoses</p>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-brain"></i>
+                            <h4>AI4Bharat + LLaMA-3</h4>
+                            <p>State-of-the-art Indic ASR with local LLM reasoning</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

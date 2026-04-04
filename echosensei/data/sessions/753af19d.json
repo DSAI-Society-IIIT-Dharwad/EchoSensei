@@ -1,0 +1,81 @@
+{
+  "session_id": "753af19d",
+  "domain": "healthcare",
+  "created_at": "2026-04-03T01:58:19.812183",
+  "turn": 3,
+  "language": "Tamil",
+  "data": {
+    "symptoms": [
+      "head ache",
+      "leg pain"
+    ],
+    "existing_conditions": [],
+    "past_history": [],
+    "duration": "2 days ago",
+    "severity": []
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-03T01:59:26.580930",
+      "new_data": {
+        "symptoms": [
+          "head shaking",
+          "body beating"
+        ],
+        "duration": null,
+        "severity": null,
+        "existing_conditions": [],
+        "past_history": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "head shaking",
+          "body beating"
+        ],
+        "existing_conditions": [],
+        "past_history": []
+      }
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-03T02:00:56.660174",
+      "new_data": {
+        "symptoms": [
+          "head shaking",
+          "body not beating"
+        ]
+      },
+      "cumulative": {
+        "symptoms": [
+          "head shaking",
+          "body not beating"
+        ],
+        "existing_conditions": [],
+        "past_history": []
+      }
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-04-03T02:02:23.019406",
+      "new_data": {
+        "symptoms": [
+          "head ache",
+          "leg pain"
+        ],
+        "duration": "2 days ago",
+        "severity": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "head ache",
+          "leg pain"
+        ],
+        "existing_conditions": [],
+        "past_history": [],
+        "duration": "2 days ago",
+        "severity": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "session_id": "ES-CGPEA2E2",
+  "domain": "healthcare",
+  "created_at": "2026-04-02T22:49:22.409716",
+  "turn": 1,
+  "data": {
+    "symptoms": [
+      "headache"
+    ],
+    "duration": {
+      "value": 2,
+      "unit": "days"
+    },
+    "severity": [
+      "mild"
+    ],
+    "existing_conditions": []
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-02T22:49:22.413017",
+      "new_data": {
+        "symptoms": [
+          "headache"
+        ],
+        "duration": {
+          "value": 2,
+          "unit": "days"
+        },
+        "severity": [
+          "mild"
+        ],
+        "existing_conditions": []
+      },
+      "cumulative": {
+        "symptoms": [
+          "headache"
+        ],
+        "duration": {
+          "value": 2,
+          "unit": "days"
+        },
+        "severity": [
+          "mild"
+        ],
+        "existing_conditions": []
+      }
+    }
+  ]
+}

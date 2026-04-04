@@ -1,0 +1,82 @@
+[
+  {
+    "text": "Common symptoms of dengue fever include high fever (104°F), severe headache behind the eyes, muscle and joint pain, nausea, vomiting, skin rash appearing 2-5 days after fever onset, and mild bleeding from nose or gums. Dengue is transmitted by Aedes mosquitoes and is prevalent in tropical regions of India during monsoon season.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "infectious_disease", "language": "en"}
+  },
+  {
+    "text": "Symptoms: bukhar, sar dard, badan dard, ulti, nose se khoon aana. Duration: 5-7 din. Diagnosis: Dengue fever. Treatment: paracetamol, ORS, aaraam, hospitalization if platelet count drops below 20000.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "infectious_disease", "language": "hi"}
+  },
+  {
+    "text": "Tuberculosis (TB) presents with persistent cough lasting more than 2 weeks, blood in sputum, night sweats, unexplained weight loss, fatigue, and low-grade fever. India has the highest TB burden globally. Diagnosis involves sputum smear microscopy, chest X-ray, and GeneXpert test. Treatment: DOTS regimen (Directly Observed Therapy, Short-course) for 6-9 months.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "pulmonology", "language": "en"}
+  },
+  {
+    "text": "Malaria symptoms include cyclical fever with chills and rigors (every 48 or 72 hours), headache, body ache, nausea, and sweating. Plasmodium vivax and P. falciparum are common in India. Diagnosis: peripheral blood smear, rapid diagnostic test (RDT). Treatment: Chloroquine for P. vivax, ACT (Artemisinin-based Combination Therapy) for P. falciparum.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "infectious_disease", "language": "en"}
+  },
+  {
+    "text": "Type 2 Diabetes Mellitus: Patient presents with polyuria (frequent urination), polydipsia (excessive thirst), polyphagia (excessive hunger), unexplained weight loss, blurred vision, fatigue. Risk factors include obesity, sedentary lifestyle, family history, age >45. Diagnosis: Fasting Blood Sugar >126 mg/dL, HbA1c >6.5%. Treatment: Metformin first-line, lifestyle modification.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "endocrinology", "language": "en"}
+  },
+  {
+    "text": "Hypertension (High Blood Pressure): Often asymptomatic ('silent killer'). When symptomatic: headache (especially at the back of head), dizziness, blurred vision, chest pain, shortness of breath. Risk factors: high salt diet, obesity, stress, family history, smoking, alcohol. Target BP: <140/90 mmHg for most adults. Treatment: ACE inhibitors, ARBs, Calcium channel blockers, Diuretics.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "cardiology", "language": "en"}
+  },
+  {
+    "text": "Symptoms: seene mein dard, sans phoolna, chakkar aana, BP high 180/110. Duration: 2 hafte se. Existing conditions: diabetes type 2 since 5 years. Past history: family mein heart disease ka history hai. Risk indicators: smoking, obesity. Diagnosis: Hypertensive crisis. Treatment: immediate BP medication, ACE inhibitors, lifestyle changes.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "cardiology", "language": "hi"}
+  },
+  {
+    "text": "Acute Gastroenteritis: symptoms include watery diarrhea, vomiting, abdominal cramps, mild fever, dehydration. Common causes in Indian context: contaminated water, street food, rotavirus in children. Treatment: ORS (Oral Rehydration Solution), zinc supplements for children, probiotics, bland diet (dal-chawal, khichdi). Severe dehydration requires IV fluids.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "gastroenterology", "language": "en"}
+  },
+  {
+    "text": "Asthma: episodic wheezing, breathlessness, chest tightness, cough (especially at night or early morning). Triggers: dust, pollen, cold air, exercise, pollution (very common in Indian metros). Diagnosis: spirometry showing reversible airflow obstruction. Treatment: inhaled corticosteroids (ICS) for long-term control, SABA (Salbutamol) for quick relief.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "pulmonology", "language": "en"}
+  },
+  {
+    "text": "Typhoid fever: sustained high fever (stepladder pattern), headache, abdominal pain, constipation or diarrhea, rose spots on abdomen, coated tongue. Caused by Salmonella typhi, transmitted through contaminated food/water. Diagnosis: Widal test, blood culture. Treatment: Azithromycin or Ceftriaxone, adequate hydration, rest for 2-3 weeks.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "infectious_disease", "language": "en"}
+  },
+  {
+    "text": "Chikungunya: sudden onset of high fever, severe joint pain (especially small joints of hands and feet), joint swelling, headache, muscle pain, rash. Transmitted by Aedes mosquitoes. No specific antiviral treatment. Management: rest, fluids, paracetamol for fever (avoid NSAIDs until dengue is ruled out). Joint pain may persist for months.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "rheumatology", "language": "en"}
+  },
+  {
+    "text": "Anemia in Indian women: pallor, fatigue, weakness, breathlessness on exertion, palpitations, dizziness. Iron deficiency is the most common cause. Prevalence: 50-60% of Indian women are anemic. Diagnosis: CBC with Hb < 12 g/dL. Treatment: Iron and folic acid supplementation, iron-rich diet (spinach, jaggery, dates, pomegranate).",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "hematology", "language": "en"}
+  },
+  {
+    "text": "Pediatric cases: common childhood illnesses in India include measles (khasra), mumps, chickenpox, hand-foot-mouth disease. Immunization schedule: BCG at birth, OPV/IPV, DPT, Hepatitis B, measles-rubella vaccine. Warning signs in children: high fever >3 days, refusal to eat/drink, lethargy, difficulty breathing, convulsions.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "pediatrics", "language": "en"}
+  },
+  {
+    "text": "Migraine: unilateral throbbing headache, nausea, photophobia (light sensitivity), phonophobia (sound sensitivity), visual aura (flashing lights, blind spots). Duration: 4-72 hours. Triggers: stress, lack of sleep, certain foods (cheese, chocolate), hormonal changes. Treatment: Triptans for acute attacks, beta-blockers or topiramate for prevention.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "neurology", "language": "en"}
+  },
+  {
+    "text": "Urinary Tract Infection (UTI): burning during urination, frequent urination, urgency, lower abdominal pain, cloudy or strong-smelling urine, mild fever. More common in women. Diagnosis: urine routine and culture. Treatment: Nitrofurantoin or Ciprofloxacin for 3-7 days, increased water intake, cranberry juice.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "urology", "language": "en"}
+  },
+  {
+    "text": "Conjunctivitis (pink eye/aankhon ka infla): redness in one or both eyes, itching, tearing, discharge (watery or thick yellowish), feeling of grit in the eye. Highly contagious. Common in India during monsoon. Treatment: antibiotic eye drops (if bacterial), cold compresses, hand hygiene, avoid touching eyes.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "ophthalmology", "language": "en"}
+  },
+  {
+    "text": "Knee osteoarthritis: ghutne mein dard, subah akadan, chalne mein taklif, soojan, crepitus (sounds from joint). Duration: 6 months se zyada. Risk factors: age > 50, motapa, past injury. Treatment: paracetamol, physiotherapy, weight loss, knee exercises, joint replacement if severe. Diagnosis: X-ray shows joint space narrowing.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "orthopaedics", "language": "hi"}
+  },
+  {
+    "text": "Pregnancy care in India: first trimester - folic acid, iron supplementation, ultrasound at 6-8 weeks for dating. Warning signs: vaginal bleeding, severe abdominal pain, persistent vomiting. Second trimester: anomaly scan at 18-22 weeks. Third trimester: weekly checkups after 36 weeks. Gestational diabetes screening at 24-28 weeks with OGTT.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "obstetrics", "language": "en"}
+  },
+  {
+    "text": "Thyroid disorders: Hypothyroidism - fatigue, weight gain, cold intolerance, dry skin, constipation, depression, hair loss. Hyperthyroidism - weight loss, anxiety, tremors, heat intolerance, palpitations, bulging eyes (Graves disease). Diagnosis: TSH, T3, T4 levels. Very common in Indian women (1 in 10). Treatment: Levothyroxine for hypo, Methimazole for hyper.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "endocrinology", "language": "en"}
+  },
+  {
+    "text": "COVID-19 symptoms: fever, dry cough, fatigue, loss of taste/smell, sore throat, body ache, breathlessness, diarrhea. Severe: oxygen saturation below 94%, persistent chest pain, confusion. Treatment: symptomatic (paracetamol, fluids), remdesivir in moderate-severe cases, prone positioning, supplemental oxygen. Post-COVID: fatigue, brain fog, joint pain may persist for weeks.",
+    "metadata": {"source": "ai4bharat_clinical", "domain": "healthcare", "specialty": "infectious_disease", "language": "en"}
+  }
+]

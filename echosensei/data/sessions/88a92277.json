@@ -1,0 +1,86 @@
+{
+  "session_id": "88a92277",
+  "domain": "healthcare",
+  "created_at": "2026-04-04T17:58:41.106179",
+  "turn": 3,
+  "language": "English",
+  "data": {
+    "symptoms": [
+      "Chest pain"
+    ],
+    "duration": "Unknown",
+    "severity": "High",
+    "existing_conditions": [],
+    "past_history": []
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-04T18:00:45.253275",
+      "new_data": {
+        "symptoms": [
+          "Fever"
+        ],
+        "duration": "Unknown",
+        "severity": "High",
+        "existing_conditions": [],
+        "past_history": []
+      },
+      "user_utterance": "Temperature is 102 degrees Celsius",
+      "cumulative": {
+        "symptoms": [
+          "Fever"
+        ],
+        "duration": "Unknown",
+        "severity": "High",
+        "existing_conditions": [],
+        "past_history": []
+      }
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-04T18:01:53.167770",
+      "new_data": {
+        "symptoms": [
+          "Fever",
+          "Sweating"
+        ],
+        "duration": "Unknown",
+        "severity": "High",
+        "existing_conditions": [],
+        "past_history": []
+      },
+      "user_utterance": "I get sweating.",
+      "cumulative": {
+        "symptoms": [
+          "Fever",
+          "Sweating"
+        ],
+        "duration": "Unknown",
+        "severity": "High",
+        "existing_conditions": [],
+        "past_history": []
+      }
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-04-04T18:02:43.669878",
+      "new_data": {
+        "symptoms": [
+          "Chest pain"
+        ],
+        "existing_conditions": []
+      },
+      "user_utterance": "I get chest pain.",
+      "cumulative": {
+        "symptoms": [
+          "Chest pain"
+        ],
+        "duration": "Unknown",
+        "severity": "High",
+        "existing_conditions": [],
+        "past_history": []
+      }
+    }
+  ]
+}

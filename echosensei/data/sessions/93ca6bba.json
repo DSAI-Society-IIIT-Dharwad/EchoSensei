@@ -1,0 +1,22 @@
+{
+  "session_id": "93ca6bba",
+  "domain": "healthcare",
+  "created_at": "2026-04-03T01:38:09.119351",
+  "turn": 1,
+  "language": "Error",
+  "data": {
+    "symptoms": []
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-03T01:43:54.733436",
+      "new_data": {
+        "symptoms": []
+      },
+      "cumulative": {
+        "symptoms": []
+      }
+    }
+  ]
+}

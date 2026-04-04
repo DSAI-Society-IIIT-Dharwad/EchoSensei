@@ -1,0 +1,86 @@
+{
+  "session_id": "dc86bd0e",
+  "domain": "healthcare",
+  "created_at": "2026-04-04T20:26:14.277601",
+  "turn": 2,
+  "language": "English",
+  "data": {
+    "symptoms": [
+      "headache",
+      "nasal blockage",
+      "sore throat",
+      "hearing problem",
+      "fever",
+      "loose motion",
+      "diarrhea",
+      "vomiting"
+    ],
+    "duration": "daily",
+    "severity": "present",
+    "existing_conditions": [],
+    "past_history": []
+  },
+  "history": [
+    {
+      "turn": 1,
+      "timestamp": "2026-04-04T20:26:26.259914",
+      "new_data": {
+        "symptoms": [
+          "headache",
+          "nasal blockage",
+          "sore throat",
+          "hearing problem",
+          "fever",
+          "loose motion",
+          "diarrhea",
+          "vomiting"
+        ],
+        "duration": "daily",
+        "severity": "present",
+        "existing_conditions": [],
+        "past_history": []
+      },
+      "user_utterance": "I have a headache, I have two nasal blockages, I have a sore throat, one ear has a hearing problem. I have two hands that are holding. I have a daily fever. Loose motion and diarrhea are present. Vomiting has been happening.",
+      "ai_response": "Can you tell me more about the fever, is it a high-grade fever or just a mild one?",
+      "cumulative": {
+        "symptoms": [
+          "headache",
+          "nasal blockage",
+          "sore throat",
+          "hearing problem",
+          "fever",
+          "loose motion",
+          "diarrhea",
+          "vomiting"
+        ],
+        "duration": "daily",
+        "severity": "present",
+        "existing_conditions": [],
+        "past_history": []
+      }
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-04-04T20:26:52.795133",
+      "new_data": {},
+      "user_utterance": "I have only a few at least.",
+      "ai_response": "Can you tell me more about the nasal blockages, are they on both sides of your nose or just one side?",
+      "cumulative": {
+        "symptoms": [
+          "headache",
+          "nasal blockage",
+          "sore throat",
+          "hearing problem",
+          "fever",
+          "loose motion",
+          "diarrhea",
+          "vomiting"
+        ],
+        "duration": "daily",
+        "severity": "present",
+        "existing_conditions": [],
+        "past_history": []
+      }
+    }
+  ]
+}
