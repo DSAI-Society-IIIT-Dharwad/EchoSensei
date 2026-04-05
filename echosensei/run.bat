@@ -24,6 +24,7 @@ if %errorlevel% neq 0 (
 
 :: Start the server in the background
 echo [2/3] Starting AI Engine (Flask Server)...
+set GROQ_API_KEY=
 start /b python server.py
 
 :: Give the server a moment to initialize

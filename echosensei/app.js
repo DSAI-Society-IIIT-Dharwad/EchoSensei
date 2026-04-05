@@ -923,4 +923,561 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load RAG status on startup
     setTimeout(loadRAGStatus, 2000);
 
+    // ══════════════════════════════════════════════════════════════════════════
+    // ══  DOCUFLOW — SPEECH-DRIVEN DOCUMENTATION CONTROLLER (v2: Full Session)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    const DF = {
+        phase: 1,
+        patientInfo: {},
+        transcript: [],          // classified transcript from LLM
+        rawTranscript: '',       // raw text from Whisper
+        isRecording: false,
+        mediaRecorder: null,
+        audioStream: null,
+        audioChunks: [],         // accumulate full recording
+        recordingStartTime: null,
+        timerInterval: null,
+        reportId: null,
+        reportData: {},
+
+        // Section definitions for report
+        SECTIONS: [
+            { key: 'complaint', label: 'Complaint / Query', icon: 'fa-comment-medical' },
+            { key: 'symptoms', label: 'Symptoms', icon: 'fa-virus' },
+            { key: 'duration', label: 'Duration', icon: 'fa-clock' },
+            { key: 'background_history', label: 'Background History', icon: 'fa-book-medical' },
+            { key: 'past_history', label: 'Past History', icon: 'fa-history' },
+            { key: 'clinical_observations', label: 'Clinical Observations', icon: 'fa-stethoscope' },
+            { key: 'diagnosis', label: 'Diagnosis / Classification', icon: 'fa-diagnoses' },
+            { key: 'treatment_advice', label: 'Treatment Advice', icon: 'fa-prescription' },
+            { key: 'action_plan', label: 'Action Plan / Treatment Plan', icon: 'fa-clipboard-list' },
+            { key: 'immunization_data', label: 'Immunization Data', icon: 'fa-syringe' },
+            { key: 'pregnancy_data', label: 'Pregnancy Data', icon: 'fa-baby' },
+            { key: 'risk_indicators', label: 'Risk Indicators', icon: 'fa-exclamation-triangle' },
+            { key: 'injury_mobility', label: 'Injury & Mobility Details', icon: 'fa-wheelchair' },
+            { key: 'ent_findings', label: 'ENT Findings', icon: 'fa-ear-listen' },
+            { key: 'verification_notes', label: 'Verification & Survey Responses', icon: 'fa-clipboard-check' },
+            { key: 'doctor_notes', label: 'Doctor\'s Notes', icon: 'fa-user-md' }
+        ]
+    };
+
+    // Safely convert any value (string, array, object) to a display string
+    function dfStringify(val) {
+        if (!val) return '';
+        if (typeof val === 'string') return val;
+        if (Array.isArray(val)) return val.map(v => typeof v === 'object' ? JSON.stringify(v) : String(v)).join(', ');
+        if (typeof val === 'object') {
+            // Try to make a readable string from object keys
+            return Object.entries(val).map(([k, v]) => `${k}: ${v}`).join('; ');
+        }
+        return String(val);
+    }
+
+    function dfSetPhase(n) {
+        DF.phase = n;
+        document.querySelectorAll('.df-phase').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.df-step').forEach(s => {
+            s.classList.remove('active', 'done');
+            const sPhase = parseInt(s.dataset.phase);
+            if (sPhase < n) s.classList.add('done');
+            if (sPhase === n) s.classList.add('active');
+        });
+        const phaseEl = document.getElementById(`df-phase-${n}`);
+        if (phaseEl) phaseEl.classList.add('active');
+    }
+
+    // Phase 1: Patient Registration
+    const dfStartBtn = document.getElementById('df-start-recording');
+    if (dfStartBtn) {
+        dfStartBtn.addEventListener('click', () => {
+            const name = document.getElementById('df-name').value.trim();
+            const age = document.getElementById('df-age').value.trim();
+            const sex = document.getElementById('df-sex').value;
+            if (!name || !age || !sex) {
+                alert('Please fill in Name, Age, and Sex.');
+                return;
+            }
+            DF.patientInfo = {
+                name, age, sex,
+                blood_group: document.getElementById('df-blood').value,
+                contact: document.getElementById('df-contact').value.trim(),
+                allergies: document.getElementById('df-allergies').value.trim(),
+                existing_conditions: document.getElementById('df-existing').value.trim()
+            };
+            DF.transcript = [];
+            DF.rawTranscript = '';
+            DF.audioChunks = [];
+            dfSetPhase(2);
+            dfStartRecording();
+        });
+    }
+
+    // Phase 2: Full-Session Recording (no chunking, no speaker toggle)
+    async function dfStartRecording() {
+        try {
+            DF.audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            DF.isRecording = true;
+            DF.recordingStartTime = Date.now();
+            DF.audioChunks = [];
+
+            // Single continuous MediaRecorder
+            const recorder = new MediaRecorder(DF.audioStream);
+            recorder.ondataavailable = e => {
+                if (e.data.size > 0) DF.audioChunks.push(e.data);
+            };
+            recorder.start(1000); // collect data every second (but keep recording continuously)
+            DF.mediaRecorder = recorder;
+
+            // Start timer
+            DF.timerInterval = setInterval(dfUpdateTimer, 1000);
+
+            // Waveform visualization
+            dfInitWaveform(DF.audioStream);
+
+            // Update recording status text
+            const feed = document.getElementById('df-transcript-feed');
+            feed.innerHTML = `
+                <div class="df-trans-empty">
+                    <i class="fas fa-circle" style="color:var(--red);animation:recBlink 1s ease-in-out infinite"></i>
+                    Recording in progress...<br>
+                    <small style="color:var(--txt3);margin-top:8px;display:block">The conversation is being recorded continuously.<br>
+                    Speaker identification will be done automatically by AI after recording stops.</small>
+                </div>
+            `;
+        } catch (e) {
+            alert('Microphone access denied: ' + e.message);
+        }
+    }
+
+    function dfStopRecording() {
+        return new Promise(resolve => {
+            DF.isRecording = false;
+            clearInterval(DF.timerInterval);
+
+            if (DF.mediaRecorder && DF.mediaRecorder.state !== 'inactive') {
+                DF.mediaRecorder.onstop = () => {
+                    if (DF.audioStream) {
+                        DF.audioStream.getTracks().forEach(t => t.stop());
+                    }
+                    resolve();
+                };
+                DF.mediaRecorder.stop();
+            } else {
+                if (DF.audioStream) {
+                    DF.audioStream.getTracks().forEach(t => t.stop());
+                }
+                resolve();
+            }
+        });
+    }
+
+    function dfUpdateTimer() {
+        const elapsed = Math.floor((Date.now() - DF.recordingStartTime) / 1000);
+        const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+        const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+        const s = String(elapsed % 60).padStart(2, '0');
+        document.getElementById('df-rec-timer').textContent = `${h}:${m}:${s}`;
+    }
+
+    function dfInitWaveform(stream) {
+        const canvas = document.getElementById('df-wave-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaStreamSource(stream);
+        const analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 64;
+        source.connect(analyser);
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+        function draw() {
+            if (!DF.isRecording) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+            requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const barWidth = (canvas.width / dataArray.length) * 2.5;
+            let x = 0;
+            dataArray.forEach(val => {
+                const h = (val / 255) * canvas.height;
+                const g = ctx.createLinearGradient(x, (canvas.height-h)/2, x, (canvas.height+h)/2);
+                g.addColorStop(0, '#ff1744');
+                g.addColorStop(0.5, '#e040fb');
+                g.addColorStop(1, '#00e5ff');
+                ctx.fillStyle = g;
+                ctx.fillRect(x, (canvas.height - h)/2, barWidth - 2, h);
+                x += barWidth;
+            });
+        }
+        draw();
+    }
+
+    function dfSetStatus(icon, text, detail) {
+        const feed = document.getElementById('df-transcript-feed');
+        feed.innerHTML = `
+            <div class="df-trans-empty" style="flex-direction:column;gap:12px">
+                <div class="sensei-dots"><span></span><span></span><span></span></div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:.95rem;color:var(--cyan)">
+                    <i class="fas ${icon}"></i> ${text}
+                </div>
+                ${detail ? `<small style="color:var(--txt3)">${detail}</small>` : ''}
+            </div>
+        `;
+    }
+
+    // Stop & Generate — full pipeline
+    const dfStopBtn = document.getElementById('df-stop-generate');
+    if (dfStopBtn) {
+        dfStopBtn.addEventListener('click', async () => {
+            dfStopBtn.disabled = true;
+            dfStopBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+            // 1. Stop recording
+            await dfStopRecording();
+
+            if (DF.audioChunks.length === 0) {
+                alert('No audio recorded. Please speak before generating.');
+                dfStopBtn.disabled = false;
+                dfStopBtn.innerHTML = '<i class="fas fa-file-medical"></i> Stop & Generate Report';
+                dfStartRecording();
+                return;
+            }
+
+            // 2. Build full audio blob
+            const fullBlob = new Blob(DF.audioChunks, { type: 'audio/webm' });
+            console.log(`[DocuFlow] Full recording: ${(fullBlob.size / 1024).toFixed(1)} KB`);
+
+            // -- Step A: Transcribe full audio --
+            dfSetStatus('fa-ear-listen', 'Transcribing full conversation...', 'Sending audio to Groq Whisper for transcription');
+
+            try {
+                const fd = new FormData();
+                fd.append('audio', fullBlob, `session_${Date.now()}.webm`);
+                fd.append('language', document.getElementById('df-lang').value);
+
+                const transRes = await fetch('/api/docuflow/transcribe_full', { method: 'POST', body: fd });
+                const transData = await transRes.json();
+
+                if (!transData.success || !transData.text || transData.text.trim().length < 5) {
+                    dfSetStatus('fa-exclamation-triangle', 'Transcription failed or empty', 'Please try recording again with clearer audio');
+                    dfStopBtn.disabled = false;
+                    dfStopBtn.innerHTML = '<i class="fas fa-file-medical"></i> Stop & Generate Report';
+                    return;
+                }
+
+                DF.rawTranscript = transData.text;
+                document.getElementById('df-trans-lang').textContent = transData.lang_name || '—';
+
+                // -- Step B: Classify speakers + Generate report --
+                dfSetStatus('fa-brain', 'AI classifying speakers & generating report...', `Transcript: ${DF.rawTranscript.length} chars | Identifying Doctor vs Patient turns and extracting clinical data`);
+
+                const reportRes = await fetch('/api/docuflow/process_full', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        raw_transcript: DF.rawTranscript,
+                        patient_info: DF.patientInfo,
+                        language: document.getElementById('df-lang').selectedOptions[0]?.text || 'English'
+                    })
+                });
+                const reportData = await reportRes.json();
+
+                if (reportData.success) {
+                    DF.reportId = reportData.report_id;
+                    DF.reportData = reportData.report_data;
+                    DF.transcript = reportData.transcript || [];
+
+                    // Show classified transcript in the feed before moving to report
+                    dfRenderClassifiedTranscript(DF.transcript);
+
+                    // Short delay to let user see the transcript, then move to report
+                    setTimeout(() => {
+                        dfSetPhase(3);
+                        // Show patient bar
+                        const patientBar = document.getElementById('df-report-patient');
+                        patientBar.innerHTML = Object.entries(DF.patientInfo)
+                            .filter(([_, v]) => v)
+                            .map(([k, v]) => `<span class="df-rp-item"><strong>${k.replace(/_/g, ' ')}:</strong> ${v}</span>`)
+                            .join('');
+                        dfRenderReport(reportData.report_data);
+                    }, 2000);
+                } else {
+                    dfSetStatus('fa-exclamation-circle', 'Report generation failed', reportData.error || 'Unknown error');
+                }
+            } catch (e) {
+                dfSetStatus('fa-exclamation-circle', 'Network error', e.message);
+            }
+
+            dfStopBtn.disabled = false;
+            dfStopBtn.innerHTML = '<i class="fas fa-file-medical"></i> Stop & Generate Report';
+        });
+    }
+
+    function dfRenderClassifiedTranscript(transcript) {
+        const feed = document.getElementById('df-transcript-feed');
+        feed.innerHTML = '';
+
+        if (!transcript || transcript.length === 0) {
+            feed.innerHTML = '<div class="df-trans-empty"><i class="fas fa-ban"></i> No turns identified</div>';
+            return;
+        }
+
+        let wordCount = 0;
+        transcript.forEach((turn, i) => {
+            const speaker = turn.speaker || 'Unknown';
+            const text = turn.text || '';
+            wordCount += text.split(/\s+/).length;
+
+            const el = document.createElement('div');
+            el.className = `df-trans-turn ${speaker.toLowerCase()}`;
+            el.style.animationDelay = `${i * 0.05}s`;
+            el.innerHTML = `
+                <div class="df-trans-speaker">
+                    <i class="fas ${speaker === 'Doctor' ? 'fa-user-md' : 'fa-user'}"></i> ${speaker}
+                </div>
+                <div class="df-trans-text">${text}</div>
+            `;
+            feed.appendChild(el);
+        });
+        feed.scrollTop = feed.scrollHeight;
+
+        document.getElementById('df-turn-count').textContent = transcript.length;
+        document.getElementById('df-word-count').textContent = wordCount;
+    }
+
+    function dfRenderReport(reportData) {
+        const grid = document.getElementById('df-report-grid');
+        grid.innerHTML = '';
+
+        DF.SECTIONS.forEach((sec, i) => {
+            const rawVal = reportData[sec.key] || '';
+            const val = dfStringify(rawVal);
+            const section = document.createElement('div');
+            section.className = 'df-report-section';
+            section.style.animationDelay = `${i * 0.06}s`;
+            section.innerHTML = `
+                <div class="df-report-section-head">
+                    <div class="df-report-section-title"><i class="fas ${sec.icon}"></i> ${sec.label}</div>
+                    <span class="df-report-section-badge">editable</span>
+                </div>
+                <div class="df-report-content" contenteditable="true" data-field="${sec.key}">${val || '<em style="color:var(--txt3)">Not discussed — click to add</em>'}</div>
+            `;
+            grid.appendChild(section);
+
+            // Auto-save on blur
+            const content = section.querySelector('.df-report-content');
+            content.addEventListener('focus', () => {
+                if (content.innerHTML.includes('Not discussed')) content.innerHTML = '';
+            });
+            content.addEventListener('blur', () => {
+                const newVal = content.innerText.trim();
+                DF.reportData[sec.key] = newVal;
+                if (DF.reportId) {
+                    fetch(`/api/docuflow/reports/${DF.reportId}/field`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ field: sec.key, value: newVal })
+                    }).catch(e => console.error(e));
+                }
+            });
+        });
+
+        document.getElementById('df-report-actions').classList.remove('hidden');
+        if (typeof gsap !== 'undefined') {
+            gsap.from('.df-report-section', { y: 20, opacity: 0, stagger: 0.06, duration: 0.5, ease: 'power3.out' });
+        }
+    }
+
+    // Phase 3 → Phase 4
+    const dfGotoExport = document.getElementById('df-goto-export');
+    if (dfGotoExport) {
+        dfGotoExport.addEventListener('click', () => {
+            dfSetPhase(4);
+            dfRenderExportPreview();
+        });
+    }
+
+    // Back to edit
+    const dfBackEdit = document.getElementById('df-back-edit');
+    if (dfBackEdit) {
+        dfBackEdit.addEventListener('click', () => dfSetPhase(3));
+    }
+
+    // New session
+    const dfNewSession = document.getElementById('df-new-session');
+    if (dfNewSession) {
+        dfNewSession.addEventListener('click', () => {
+            DF.transcript = [];
+            DF.rawTranscript = '';
+            DF.reportData = {};
+            DF.reportId = null;
+            DF.audioChunks = [];
+            document.getElementById('df-name').value = '';
+            document.getElementById('df-age').value = '';
+            document.getElementById('df-sex').value = '';
+            document.getElementById('df-transcript-feed').innerHTML = '<div class="df-trans-empty"><i class="fas fa-satellite-dish"></i> Waiting for speech...</div>';
+            document.getElementById('df-turn-count').textContent = '0';
+            document.getElementById('df-word-count').textContent = '0';
+            document.getElementById('df-rec-timer').textContent = '00:00:00';
+            document.getElementById('df-report-grid').innerHTML = '';
+            document.getElementById('df-report-actions').classList.add('hidden');
+            dfSetPhase(1);
+        });
+    }
+
+    function dfRenderExportPreview() {
+        const preview = document.getElementById('df-export-preview');
+        let html = `<h3>ECHOSENSEI — CLINICAL REPORT</h3>`;
+        html += `<div class="df-exp-section"><h4>Patient Information</h4><p>`;
+        html += Object.entries(DF.patientInfo).filter(([_,v]) => v).map(([k,v]) => `<strong>${k.replace(/_/g,' ')}:</strong> ${v}`).join(' &nbsp;|&nbsp; ');
+        html += `</p></div>`;
+        DF.SECTIONS.forEach(sec => {
+            const rawVal = DF.reportData[sec.key];
+            const val = dfStringify(rawVal);
+            if (val && val !== 'N/A' && val !== 'Not discussed') {
+                html += `<div class="df-exp-section"><h4>${sec.label}</h4><p>${val}</p></div>`;
+            }
+        });
+        preview.innerHTML = html;
+    }
+
+    // PDF Download
+    const dfPdfBtn = document.getElementById('df-download-pdf');
+    if (dfPdfBtn) {
+        dfPdfBtn.addEventListener('click', () => {
+            // Check if jsPDF is loaded
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                alert('PDF library is still loading. Please wait a moment and try again.');
+                // Try loading it dynamically as fallback
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                script.onload = () => console.log('[DocuFlow] jsPDF loaded via fallback');
+                document.head.appendChild(script);
+                return;
+            }
+            try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.getWidth();
+            let y = 20;
+
+            // Header
+            doc.setFillColor(10, 14, 30);
+            doc.rect(0, 0, pageWidth, 40, 'F');
+            doc.setFontSize(20);
+            doc.setTextColor(0, 229, 255);
+            doc.text('ECHOSENSEI', pageWidth / 2, 18, { align: 'center' });
+            doc.setFontSize(10);
+            doc.setTextColor(200, 200, 200);
+            doc.text('CLINICAL DOCUMENTATION REPORT', pageWidth / 2, 26, { align: 'center' });
+            doc.setFontSize(8);
+            doc.text(`Generated: ${new Date().toLocaleString()} | Report ID: ${DF.reportId || 'N/A'}`, pageWidth / 2, 34, { align: 'center' });
+            y = 50;
+
+            // Patient Info
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont('helvetica', 'bold');
+            doc.text('PATIENT INFORMATION', 20, y);
+            y += 7;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            Object.entries(DF.patientInfo).filter(([_,v]) => v).forEach(([k, v]) => {
+                doc.text(`${k.replace(/_/g, ' ').toUpperCase()}: ${v}`, 20, y);
+                y += 5;
+            });
+            y += 5;
+            doc.setDrawColor(0, 229, 255);
+            doc.line(20, y, pageWidth - 20, y);
+            y += 8;
+
+            // Report sections
+            DF.SECTIONS.forEach(sec => {
+                const rawVal = DF.reportData[sec.key];
+                const val = dfStringify(rawVal);
+                if (val && val !== 'N/A' && val !== 'Not discussed') {
+                    if (y > 270) { doc.addPage(); y = 20; }
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(10);
+                    doc.setTextColor(14, 116, 144);
+                    doc.text(sec.label.toUpperCase(), 20, y);
+                    y += 6;
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(9);
+                    doc.setTextColor(50, 50, 50);
+                    const lines = doc.splitTextToSize(val, pageWidth - 40);
+                    lines.forEach(line => {
+                        if (y > 280) { doc.addPage(); y = 20; }
+                        doc.text(line, 20, y);
+                        y += 5;
+                    });
+                    y += 6;
+                }
+            });
+
+            // Footer
+            if (y > 260) { doc.addPage(); y = 20; }
+            y += 10;
+            doc.setDrawColor(0, 229, 255);
+            doc.line(20, y, pageWidth - 20, y);
+            y += 8;
+            doc.setFontSize(8);
+            doc.setTextColor(120, 120, 120);
+            doc.text('This report was generated by EchoSensei AI Clinical Documentation System.', 20, y);
+            y += 4;
+            doc.text('Reviewed and approved by the attending physician.', 20, y);
+            y += 10;
+            doc.text('Doctor\'s Signature: ________________________', 20, y);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, pageWidth - 70, y);
+
+            doc.save(`EchoSensei-Report-${DF.reportId || 'draft'}.pdf`);
+            } catch (err) {
+                console.error('[DocuFlow] PDF generation error:', err);
+                alert('Error generating PDF: ' + err.message);
+            }
+        });
+    }
+
+    // Finalize — save to History tab
+    const dfFinalizeBtn = document.getElementById('df-finalize');
+    if (dfFinalizeBtn) {
+        dfFinalizeBtn.addEventListener('click', async () => {
+            if (!DF.reportId) {
+                alert('No report to finalize.');
+                return;
+            }
+            dfFinalizeBtn.disabled = true;
+            dfFinalizeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            try {
+                // 1. Mark report as finalized
+                await fetch(`/api/docuflow/reports/${DF.reportId}/finalize`, { method: 'POST' });
+
+                // 2. Save to History (create a session entry so it shows in the History tab)
+                const res = await fetch('/api/docuflow/save_to_history', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        report_id: DF.reportId,
+                        patient_info: DF.patientInfo,
+                        report_data: DF.reportData,
+                        transcript: DF.transcript
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Report finalized and saved to History!');
+                    // Navigate to History tab
+                    document.querySelector('[data-tab="history"]')?.click();
+                } else {
+                    alert('Report finalized but failed to save to history: ' + (data.error || 'Unknown error'));
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Error finalizing report: ' + e.message);
+            }
+            dfFinalizeBtn.disabled = false;
+            dfFinalizeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Finalize Report';
+        });
+    }
+
 });

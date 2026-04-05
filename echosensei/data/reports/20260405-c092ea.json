@@ -1,0 +1,88 @@
+{
+  "report_id": "20260405-c092ea",
+  "created_at": "2026-04-05T00:43:41.969590",
+  "updated_at": "2026-04-05T00:43:42.041714",
+  "status": "draft",
+  "language": "Auto Detect",
+  "patient_info": {
+    "name": "Madhav M K",
+    "age": "21",
+    "sex": "Male",
+    "blood_group": "O+",
+    "contact": "9790486984",
+    "allergies": "Dust Allergy",
+    "existing_conditions": "Eye pain and Head ache"
+  },
+  "transcript": [
+    {
+      "speaker": "Doctor",
+      "text": "sqhman сам Scraena avec des titel, precipitar страх rate ou jubilabye Jáyайте lu就是 attu,说 ne"
+    },
+    {
+      "speaker": "Patient",
+      "text": "என்ன பிரச்சனை"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "நீங்கள் என்ன செய்து கொண்டிருக்கிறீர்கள்?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "வலி இருக்கிறது"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "எப்போது வலி இருக்கிறது?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "இரவில் வலி இருக்கிறது"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "உங்களுக்கு எந்த மருந்து சாப்பிட்டாலும் பலன் இல்லையா?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "ஆம், பலன் இல்லை"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "நாங்கள் உங்களுக்கு சில சோதனைகளை செய்வோம்"
+    },
+    {
+      "speaker": "Patient",
+      "text": "என்ன சோதனைகள்?"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "உங்களுக்கு எலும்பு சோதனை செய்வோம்"
+    },
+    {
+      "speaker": "Patient",
+      "text": "என்ன செய்வது என்பது தெரியவில்லை"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "நாங்கள் உங்களுக்கு மேலும் விளக்கம் சொல்வோம்"
+    }
+  ],
+  "report_data": {
+    "complaint": "Headache and Eye pain",
+    "symptoms": "Headache, Eye pain, Nighttime pain",
+    "duration": "N/A",
+    "background_history": "N/A",
+    "past_history": "Existing conditions: Eye pain and Headache",
+    "clinical_observations": "N/A",
+    "diagnosis": "Possible Migraine or Tension Headache, Differential diagnoses: Sinusitis, Allergic Rhinitis",
+    "treatment_advice": "N/A",
+    "action_plan": "Further investigations, including bone scan, to be conducted",
+    "immunization_data": "N/A",
+    "pregnancy_data": "N/A",
+    "risk_indicators": "Dust Allergy, Family history of Headache and Eye pain",
+    "injury_mobility": "N/A",
+    "ent_findings": "N/A",
+    "verification_notes": "Patient confirmed experiencing pain at night, no relief from medication",
+    "doctor_notes": "Patient to be further evaluated for possible underlying conditions, need for further investigations"
+  }
+}

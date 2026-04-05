@@ -16,6 +16,11 @@ try:
     )
     from core.timeline import get_timeline
     from core.rag import rag_engine
+    from models.report_generator import generate_clinical_report, classify_speakers, process_full_session
+    from core.reports import (
+        create_report, save_report as persist_report, load_report, list_reports,
+        delete_report as remove_report, update_report_field, finalize_report
+    )
 except ImportError as e:
     logging.error(f"Failed to load models. Error: {e}")
 
@@ -63,6 +68,24 @@ def transcribe_and_analyze():
         asr_result = transcribe(filepath, target_lang=target_lang)
         native_text = asr_result["text"]
         lang_name = asr_result["lang_name"]
+
+        # SILENCE BARRIER: If audio is uninterpretable, don't reset. Ask for repeat.
+        if not native_text or len(native_text.strip()) < 1:
+            print("   [ASR] 🔇 Silence/Noise detected. Bypassing LLM with pardon message.")
+            pardon_native = "மன்னிக்கவும், எனக்கு சரியாக கேட்கவில்லை. மீண்டும் சொல்ல முடியுமா?"
+            if lang_name == "Hindi": pardon_native = "क्षमा करें, मुझे सुनाई नहीं दिया। क्या आप फिर से बोल सकते हैं?"
+            if lang_name == "Kannada": pardon_native = "ಕ್ಷಮಿಸಿ, ನನಗೆ ಸರಿಯಾಗಿ ಕೇಳಿಸಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಪುನರಾವರ್ತಿಸಿ."
+            
+            return jsonify({
+                "success": True,
+                "transcription": {"text": "(Silence detected)"},
+                "analysis": {"domain": domain, "data": get_session_data(session_id)},
+                "akinator": {
+                    "sensei_question_english": "I didn't quite catch that. Could you please repeat?",
+                    "sensei_question_native": pardon_native,
+                    "differential_diagnoses": []
+                }
+            })
 
         session_data = get_session_data(session_id)
         session_transcript = get_session_transcript(session_id)
@@ -255,6 +278,203 @@ def rag_clear():
     """Clear the entire RAG index."""
     rag_engine.clear_index()
     return jsonify({"success": True, "message": "RAG index cleared."})
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# ══  DOCUFLOW — SPEECH-DRIVEN DOCUMENTATION ENDPOINTS
+# ══════════════════════════════════════════════════════════════════════════════
+
+@app.route('/api/docuflow/transcribe_full', methods=['POST'])
+def docuflow_transcribe_full():
+    """Transcribe a complete audio recording (full-session mode)."""
+    if 'audio' not in request.files:
+        return jsonify({"error": "No audio file provided"}), 400
+
+    audio_file = request.files['audio']
+    filename = secure_filename(audio_file.filename) or 'session.webm'
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    audio_file.save(filepath)
+
+    try:
+        target_lang = request.form.get('language', 'auto')
+        print(f"[DocuFlow] 🎙️ Transcribing full session: {filename} ({target_lang})")
+        asr_result = transcribe(filepath, target_lang=target_lang)
+        text = asr_result.get("text", "").strip()
+        detected_lang = asr_result.get("detected_lang", "en")
+        lang_name = asr_result.get("lang_name", "Unknown")
+        latency = asr_result.get("latency_ms", 0)
+        print(f"   [DocuFlow] ✅ Full transcription: {len(text)} chars | {lang_name} | {latency}ms")
+        return jsonify({
+            "success": True,
+            "text": text,
+            "detected_lang": detected_lang,
+            "lang_name": lang_name,
+            "latency_ms": latency
+        })
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+
+
+@app.route('/api/docuflow/process_full', methods=['POST'])
+def docuflow_process_full():
+    """Full pipeline: raw transcript → speaker classification → structured report."""
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+
+    raw_transcript = data.get('raw_transcript', '')
+    patient_info = data.get('patient_info', {})
+    language = data.get('language', 'English')
+
+    if not raw_transcript.strip():
+        return jsonify({"error": "Empty transcript"}), 400
+
+    print(f"[DocuFlow] 📋 Processing full session: {len(raw_transcript)} chars")
+    result = process_full_session(raw_transcript, patient_info, language)
+
+    classified_transcript = result.get('transcript', [])
+    report_data = result.get('report_data', {})
+
+    if report_data.get("error"):
+        return jsonify(report_data), 500
+
+    # Create and persist the report
+    report_id = create_report(patient_info, classified_transcript, language)
+    report = load_report(report_id)
+    report["report_data"] = report_data
+    report["transcript"] = classified_transcript
+    persist_report(report_id, report)
+
+    print(f"[DocuFlow] ✅ Report {report_id} generated with {len(classified_transcript)} classified turns.")
+    return jsonify({
+        "success": True,
+        "report_id": report_id,
+        "report_data": report_data,
+        "transcript": classified_transcript,
+        "patient_info": patient_info
+    })
+
+
+@app.route('/api/docuflow/reports', methods=['GET'])
+def docuflow_list_reports():
+    """List all saved reports."""
+    reports = list_reports()
+    return jsonify({"reports": reports})
+
+
+@app.route('/api/docuflow/reports/<report_id>', methods=['GET'])
+def docuflow_get_report(report_id):
+    """Get a full report by ID."""
+    report = load_report(report_id)
+    if not report:
+        return jsonify({"error": "Report not found"}), 404
+    return jsonify(report)
+
+
+@app.route('/api/docuflow/reports/<report_id>', methods=['DELETE'])
+def docuflow_delete_report(report_id):
+    """Delete a report."""
+    if remove_report(report_id):
+        return jsonify({"success": True})
+    return jsonify({"error": "Report not found"}), 404
+
+
+@app.route('/api/docuflow/reports/<report_id>/field', methods=['PUT'])
+def docuflow_update_field(report_id):
+    """Update a single field in a report (editable review)."""
+    data = request.get_json()
+    if not data or 'field' not in data or 'value' not in data:
+        return jsonify({"error": "Missing field or value"}), 400
+    updated = update_report_field(report_id, data['field'], data['value'])
+    if not updated:
+        return jsonify({"error": "Report not found"}), 404
+    return jsonify({"success": True})
+
+
+@app.route('/api/docuflow/reports/<report_id>/finalize', methods=['POST'])
+def docuflow_finalize(report_id):
+    """Mark a report as finalized."""
+    report = finalize_report(report_id)
+    if not report:
+        return jsonify({"error": "Report not found"}), 404
+    return jsonify({"success": True, "report": report})
+
+
+@app.route('/api/docuflow/save_to_history', methods=['POST'])
+def docuflow_save_to_history():
+    """Save a finalized DocuFlow report as a session in the History tab."""
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+
+    report_id = data.get('report_id', '')
+    patient_info = data.get('patient_info', {})
+    report_data = data.get('report_data', {})
+    transcript = data.get('transcript', [])
+
+    try:
+        import json
+        from datetime import datetime
+
+        SESSIONS_DIR = "data/sessions"
+        os.makedirs(SESSIONS_DIR, exist_ok=True)
+
+        # Use the report ID as the session ID for easy cross-reference
+        session_id = f"df-{report_id}"
+
+        # Build session data from the report fields
+        session_data = {}
+        # Add patient info
+        for k, v in patient_info.items():
+            if v:
+                session_data[f"patient_{k}"] = str(v)
+        # Add key report fields
+        for k, v in report_data.items():
+            if v and v != 'N/A' and v != 'Not discussed':
+                session_data[k] = str(v)[:200]  # cap preview length
+
+        # Build history entries from the transcript
+        history = []
+        for i, turn in enumerate(transcript):
+            speaker = turn.get('speaker', 'Unknown')
+            text = turn.get('text', '')
+            history.append({
+                "turn": i + 1,
+                "timestamp": datetime.now().isoformat(),
+                "new_data": {},
+                "user_utterance": text if speaker == 'Patient' else '',
+                "ai_response": text if speaker == 'Doctor' else '',
+                "cumulative": {}
+            })
+
+        session = {
+            "session_id": session_id,
+            "domain": "docuflow",
+            "created_at": datetime.now().isoformat(),
+            "turn": len(transcript),
+            "language": "Multi-Language",
+            "data": session_data,
+            "history": history,
+            "docuflow_report_id": report_id,
+            "is_docuflow": True
+        }
+
+        session_path = os.path.join(SESSIONS_DIR, f"{session_id}.json")
+        with open(session_path, "w", encoding="utf-8") as f:
+            json.dump(session, f, indent=2, ensure_ascii=False)
+
+        print(f"[DocuFlow] ✅ Report {report_id} saved to History as session {session_id}")
+        return jsonify({"success": True, "session_id": session_id})
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':

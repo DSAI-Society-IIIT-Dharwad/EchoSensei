@@ -96,6 +96,7 @@
                 <span class="nav-name">ECHO<span>SENSEI</span></span>
             </div>
             <div class="nav-links">
+                <a href="#" class="nav-link" data-tab="docuflow"><i class="fas fa-file-medical-alt"></i> DocuFlow</a>
                 <a href="#" class="nav-link active" data-tab="dashboard"><i class="fas fa-border-all"></i> Dashboard</a>
                 <a href="#" class="nav-link" data-tab="sensei"><i class="fas fa-brain"></i> Sensei AI</a>
                 <a href="#" class="nav-link" data-tab="history"><i class="fas fa-clock-rotate-left"></i> History</a>
@@ -112,6 +113,166 @@
     <!-- ═══ APP MAIN ═══ -->
     <div id="app" class="app-hidden">
         <main class="content">
+
+            <!-- ═══ DOCUFLOW PAGE ═══ -->
+            <section class="pg" id="pg-docuflow">
+                <div class="docuflow-container">
+                    <!-- Phase Stepper -->
+                    <div class="df-stepper">
+                        <div class="df-step active" data-phase="1"><span class="df-step-num">1</span><span class="df-step-label">Patient Info</span></div>
+                        <div class="df-step-line"></div>
+                        <div class="df-step" data-phase="2"><span class="df-step-num">2</span><span class="df-step-label">Recording</span></div>
+                        <div class="df-step-line"></div>
+                        <div class="df-step" data-phase="3"><span class="df-step-num">3</span><span class="df-step-label">Report</span></div>
+                        <div class="df-step-line"></div>
+                        <div class="df-step" data-phase="4"><span class="df-step-num">4</span><span class="df-step-label">Export</span></div>
+                    </div>
+
+                    <!-- PHASE 1: Patient Registration -->
+                    <div class="df-phase active" id="df-phase-1">
+                        <div class="df-phase-header">
+                            <h2><i class="fas fa-user-plus"></i> Patient <span>Registration</span></h2>
+                            <p>Enter the patient's preliminary details before starting the consultation.</p>
+                        </div>
+                        <div class="df-patient-form glass-panel" style="--delay:.15s">
+                            <div class="df-form-grid">
+                                <div class="df-field">
+                                    <label for="df-name"><i class="fas fa-user"></i> Full Name *</label>
+                                    <input type="text" id="df-name" placeholder="Patient name" required>
+                                </div>
+                                <div class="df-field">
+                                    <label for="df-age"><i class="fas fa-calendar"></i> Age *</label>
+                                    <input type="number" id="df-age" placeholder="Age" min="0" max="150" required>
+                                </div>
+                                <div class="df-field">
+                                    <label for="df-sex"><i class="fas fa-venus-mars"></i> Sex *</label>
+                                    <select id="df-sex">
+                                        <option value="">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="df-field">
+                                    <label for="df-blood"><i class="fas fa-tint"></i> Blood Group</label>
+                                    <select id="df-blood">
+                                        <option value="">Select</option>
+                                        <option>A+</option><option>A-</option>
+                                        <option>B+</option><option>B-</option>
+                                        <option>AB+</option><option>AB-</option>
+                                        <option>O+</option><option>O-</option>
+                                    </select>
+                                </div>
+                                <div class="df-field">
+                                    <label for="df-contact"><i class="fas fa-phone"></i> Contact</label>
+                                    <input type="tel" id="df-contact" placeholder="Phone number">
+                                </div>
+                                <div class="df-field">
+                                    <label for="df-allergies"><i class="fas fa-exclamation-triangle"></i> Known Allergies</label>
+                                    <input type="text" id="df-allergies" placeholder="e.g. Penicillin, Dust">
+                                </div>
+                                <div class="df-field full-width">
+                                    <label for="df-existing"><i class="fas fa-notes-medical"></i> Existing Conditions</label>
+                                    <textarea id="df-existing" placeholder="Diabetes, Hypertension, etc." rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="df-field">
+                                <label for="df-lang"><i class="fas fa-language"></i> Conversation Language</label>
+                                <select id="df-lang">
+                                    <option value="auto">Auto Detect</option>
+                                    <option value="en">English</option>
+                                    <option value="hi">Hindi</option>
+                                    <option value="ta" selected>Tamil</option>
+                                    <option value="kn">Kannada</option>
+                                </select>
+                            </div>
+                            <div class="df-form-actions">
+                                <button class="neo-btn df-next-btn" id="df-start-recording"><i class="fas fa-microphone"></i> Start Consultation Recording</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PHASE 2: Recording Studio -->
+                    <div class="df-phase" id="df-phase-2">
+                        <div class="df-phase-header">
+                            <h2><i class="fas fa-microphone-lines"></i> Live <span>Recording</span></h2>
+                            <p>Recording the doctor-patient conversation. Speaker identification is automatic.</p>
+                        </div>
+                        <div class="df-recording-layout">
+                            <!-- Recording Controls -->
+                            <div class="df-rec-controls glass-panel" style="--delay:.1s">
+                                <div class="df-rec-status">
+                                    <div class="df-rec-indicator" id="df-rec-indicator"><span class="df-rec-dot"></span> RECORDING</div>
+                                    <div class="df-rec-timer mono" id="df-rec-timer">00:00:00</div>
+                                </div>
+                                <div class="df-mic-stage">
+                                    <canvas id="df-wave-canvas" class="df-wave-canvas"></canvas>
+                                    <button class="df-mic-btn recording" id="df-mic-btn"><i class="fas fa-stop" id="df-mic-icon"></i></button>
+                                </div>
+                                <div style="text-align:center;padding:10px 14px;border-radius:10px;background:rgba(0,229,255,0.04);border:1px solid var(--border)">
+                                    <small style="color:var(--txt3);font-size:.75rem"><i class="fas fa-magic" style="color:var(--cyan);margin-right:6px"></i>AI will automatically identify Doctor vs Patient after recording stops</small>
+                                </div>
+                                <div class="df-rec-actions">
+                                    <button class="neo-btn df-generate-btn" id="df-stop-generate"><i class="fas fa-file-medical"></i> Stop & Generate Report</button>
+                                </div>
+                            </div>
+                            <!-- Live Transcript -->
+                            <div class="df-transcript-panel glass-panel" style="--delay:.2s">
+                                <div class="df-transcript-head">
+                                    <h3><i class="fas fa-scroll"></i> LIVE TRANSCRIPT</h3>
+                                    <span class="badge" id="df-trans-lang">—</span>
+                                </div>
+                                <div class="df-transcript-feed" id="df-transcript-feed">
+                                    <div class="df-trans-empty"><i class="fas fa-satellite-dish"></i> Waiting for speech...</div>
+                                </div>
+                                <div class="df-transcript-foot">
+                                    <span class="vpill"><i class="fas fa-comment-dots"></i> <span id="df-turn-count">0</span> turns</span>
+                                    <span class="vpill mono"><i class="fas fa-font"></i> <span id="df-word-count">0</span> words</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PHASE 3: Report Review (Editable) -->
+                    <div class="df-phase" id="df-phase-3">
+                        <div class="df-phase-header">
+                            <h2><i class="fas fa-file-medical"></i> Clinical <span>Report</span></h2>
+                            <p>AI-generated report from the consultation. All fields are editable by the doctor.</p>
+                        </div>
+                        <div class="df-report-shell">
+                            <!-- Patient Summary Bar -->
+                            <div class="df-report-patient glass-panel" style="--delay:.1s" id="df-report-patient"></div>
+                            <!-- Report Sections -->
+                            <div class="df-report-grid" id="df-report-grid">
+                                <div class="df-report-loading glass-panel" id="df-report-loading" style="--delay:.15s">
+                                    <div class="sensei-dots"><span></span><span></span><span></span></div>
+                                    <p>Generating structured clinical report from conversation...</p>
+                                </div>
+                            </div>
+                            <div class="df-report-actions hidden" id="df-report-actions">
+                                <button class="neo-btn" id="df-goto-export"><i class="fas fa-download"></i> Proceed to Export</button>
+                                <button class="neo-btn" id="df-new-session"><i class="fas fa-plus"></i> New Consultation</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PHASE 4: Export -->
+                    <div class="df-phase" id="df-phase-4">
+                        <div class="df-phase-header">
+                            <h2><i class="fas fa-download"></i> Export <span>Report</span></h2>
+                            <p>Review and download the finalized clinical documentation.</p>
+                        </div>
+                        <div class="df-export-container glass-panel" style="--delay:.1s">
+                            <div class="df-export-preview" id="df-export-preview"></div>
+                            <div class="df-export-toolbar">
+                                <button class="neo-btn df-pdf-btn" id="df-download-pdf"><i class="fas fa-file-pdf"></i> Download PDF</button>
+                                <button class="neo-btn" id="df-back-edit"><i class="fas fa-pen"></i> Back to Edit</button>
+                                <button class="neo-btn df-finalize-btn" id="df-finalize"><i class="fas fa-check-circle"></i> Finalize Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <section class="pg active" id="pg-dashboard">
                 <div class="dash-grid">

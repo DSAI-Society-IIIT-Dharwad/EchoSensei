@@ -1,0 +1,41 @@
+{
+  "report_id": "20260405-f7a543",
+  "created_at": "2026-04-05T10:25:24.759393",
+  "updated_at": "2026-04-05T10:26:03.247052",
+  "status": "finalized",
+  "language": "English",
+  "patient_info": {
+    "name": "Asmita J",
+    "age": "20",
+    "sex": "Female",
+    "blood_group": "AB-",
+    "contact": "",
+    "allergies": "",
+    "existing_conditions": ""
+  },
+  "transcript": [
+    {
+      "speaker": "Unknown",
+      "text": "Hi, doctor. I'm having a fever for two days."
+    }
+  ],
+  "report_data": {
+    "complaint": "Fever for two days",
+    "symptoms": "Fever",
+    "duration": "Two days",
+    "background_history": "N/A",
+    "past_history": "N/A",
+    "clinical_observations": "N/A",
+    "diagnosis": "Possible viral infection, differential diagnoses include common cold, flu",
+    "treatment_advice": "Rest, hydration, over-the-counter medications for fever",
+    "action_plan": "Follow-up in two days if symptoms persist, no tests ordered",
+    "immunization_data": "N/A",
+    "pregnancy_data": "N/A",
+    "risk_indicators": "N/A",
+    "injury_mobility": "N/A",
+    "ent_findings": "N/A",
+    "verification_notes": "Patient confirmed experiencing fever for two days",
+    "doctor_notes": "Patient's symptoms are consistent with a viral infection, will monitor for progression"
+  },
+  "finalized_at": "2026-04-05T10:26:03.247052"
+}

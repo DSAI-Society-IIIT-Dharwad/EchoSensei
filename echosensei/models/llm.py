@@ -2,6 +2,9 @@ import json
 import os
 import requests
 from core.rag import rag_engine
+from dotenv import load_dotenv
+load_dotenv()
+os.environ.get("GROQ_API_KEY")
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
@@ -149,9 +152,10 @@ RULES:
 3. CONVERSATIONAL MEMORY (CRITICAL): Read the `[Chat History]` below. You MUST ask a perfectly logical, completely NEW follow-up question that builds upon the user's latest response. NEVER repeat a question you already asked. DO NOT ask the user to describe something if they already gave you a description (e.g. if they say "sharp headache", DO NOT ask "describe the headache"). Move the diagnosis forward!
 4. VITAL RULE: The `new_extracted_data` block is a medical database. To maintain universality, you MUST translate any extracted facts into ENGLISH before adding them. No non-English characters are allowed inside `new_extracted_data`.
 5. For `sensei_question_english`, write your conversational medical response/question strictly in English entirely.
-6. For `sensei_question_native`, you MUST detect the exact language and script the user spoke in ("{native_text}"), and provide the EXACT translation of your conversational response entirely in that native language and script (e.g., if Tamil audio is detected, this field must be 100% Tamil script. If Hindi, 100% Devanagari). DO NOT mix languages here.
-7. TRANSCRIPTION CORRECTION: Look at the exact user spoken text: "{native_text}". If the user spoke purely in a single language (e.g. 100% Tamil, or 100% Hindi), output exactly that native language as the `corrected_transcription` (fix any minor spelling errors). IF the user mixed multiple languages together in the same sentence (e.g. Tamil + English loan words, or Kannada + Hindi), you MUST translate their entire sentence into pure English for the `corrected_transcription`. Do not output mixed scripts.
-8. COMPREHENSIVE RESPONSE: You must address ALL parts of the user's message. Do not ignore secondary symptoms, multiple questions, or side-comments. Address everything they mentioned.
+6. SENSEI NATIVE IDENTITY (CRITICAL): Your primary goal is to converse in the user's native language ({target_lang}). Even if you translate the `corrected_transcription` to English because it was code-mixed, your `sensei_question_native` MUST be in the perfect, professional script of the user's origin language ({target_lang}). Never respond in English script for the native field.
+7. SEMANTIC UNDERSTANDING (FIRST PRINCIPLES): Do not just transliterate sounds. First, decode the EXACT medical meaning of the user's spoken words in their culture/context. Then, formulate your diagnosis. Finally, translate it into both English and the native script.
+8. TRANSCRIPTION CORRECTION & HALLUCINATION PURGING: Look at the user's spoken text: "{native_text}". You MUST identify and quietly DELETE any hallucinatory words (e.g., random background noise phrases). After cleaning: Output the `corrected_transcription`. You MUST be medically literal. Do NOT hallucinate new symptoms. If the user said "headache," your translation MUST be "headache"—never "fever." If the user spoke purely in a single language, output that native language. IF the user mixed multiple languages (e.g. Tamil + English loan words), translate their entire sentence into pure English for the `corrected_transcription` logs.
+9. COMPREHENSIVE RESPONSE: You must address ALL parts of the user's message. Do not ignore secondary symptoms, multiple questions, or side-comments. Address everything they mentioned.
 
 {rag_context}
 

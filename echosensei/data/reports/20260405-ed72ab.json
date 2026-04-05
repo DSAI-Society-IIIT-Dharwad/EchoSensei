@@ -1,0 +1,101 @@
+{
+  "report_id": "20260405-ed72ab",
+  "created_at": "2026-04-05T02:28:33.631559",
+  "updated_at": "2026-04-05T02:28:58.889605",
+  "status": "finalized",
+  "language": "Auto Detect",
+  "patient_info": {
+    "name": "Madhav M K",
+    "age": "23",
+    "sex": "Male",
+    "blood_group": "O+",
+    "contact": "9790486984",
+    "allergies": "",
+    "existing_conditions": ""
+  },
+  "transcript": [
+    {
+      "speaker": "Doctor",
+      "text": "Good morning, what brings you here in today?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "Good morning, Doctor. I have been having a headache and pain in my eyes."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Since when you have been experiencing this?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "It started about two days ago."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Is the headache constant or does it come and go?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "It's mostly constant but it gets worse when I look at the screens."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "I see."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Where exactly is the headache located?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "Mostly around my forehead and behind my eyes."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Do you have any other symptoms like fever, nausea or blood, vision?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "No fever, but sometimes my vision feels slightly strained."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "How many hours do you spend on screens daily?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "Around eight to ten hours I work on a laptop."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "That could be causing eye strain."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Are you getting enough sleep?"
+    },
+    {
+      "speaker": "Patient",
+      "text": "Not really, maybe five to six hours."
+    }
+  ],
+  "report_data": {
+    "complaint": "Headache and eye pain",
+    "symptoms": "headache, pain in eyes, strained vision, eye strain",
+    "duration": "2 days",
+    "background_history": "N/A",
+    "past_history": "N/A",
+    "clinical_observations": "Patient reports constant headache, worse with screen time, eye strain, and strained vision. No fever or other symptoms.",
+    "diagnosis": "Possible eye strain, differential diagnoses: migraine, sinusitis",
+    "treatment_advice": "Reduce screen time, get enough sleep (7-8 hours), consider eye drops for relief",
+    "action_plan": "Follow-up in 2 days, monitor symptoms, consider eye examination if symptoms persist",
+    "immunization_data": "N/A",
+    "pregnancy_data": "N/A",
+    "risk_indicators": "Prolonged screen time, inadequate sleep",
+    "injury_mobility": "N/A",
+    "ent_findings": "N/A",
+    "verification_notes": "Patient confirmed symptoms, denied fever or other symptoms",
+    "doctor_notes": "Patient's symptoms are likely related to prolonged screen time and inadequate sleep. Consider eye examination if symptoms persist."
+  },
+  "finalized_at": "2026-04-05T02:28:58.887066"
+}

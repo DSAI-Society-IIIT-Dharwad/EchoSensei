@@ -1,0 +1,84 @@
+{
+  "report_id": "20260405-f6c3d7",
+  "created_at": "2026-04-05T00:52:03.541000",
+  "updated_at": "2026-04-05T00:52:03.643956",
+  "status": "draft",
+  "language": "Auto Detect",
+  "patient_info": {
+    "name": "Madhav M K",
+    "age": "21",
+    "sex": "Male",
+    "blood_group": "O+",
+    "contact": "",
+    "allergies": "",
+    "existing_conditions": ""
+  },
+  "transcript": [
+    {
+      "speaker": "Doctor",
+      "text": "Seven days verschied, it becomes stronger and break. However, in one week issue you will deal with your Terre trading, exercise and wrench on tablets."
+    },
+    {
+      "speaker": "Patient",
+      "text": "Dr Anupathy medicine is sending on a doctor's illness."
+    },
+    {
+      "speaker": "Doctor",
+      "text": "என்ன பிரச்சனை"
+    },
+    {
+      "speaker": "Patient",
+      "text": "வலி இருக்கிறது"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "அது எங்கு இருக்கிறது"
+    },
+    {
+      "speaker": "Patient",
+      "text": "காலில் இருக்கிறது"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "அது எப்படி இருக்கிறது"
+    },
+    {
+      "speaker": "Patient",
+      "text": "தொடக்கத்தில் சிறிது இருந்தது, இப்போது அதிகமாக இருக்கிறது"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "நீங்கள் என்ன செய்து கொண்டிருக்கிறீர்கள்"
+    },
+    {
+      "speaker": "Patient",
+      "text": "நான் சில மருந்துகள் சாப்பிட்டேன், ஆனால் அது பலன் தரவில்லை"
+    },
+    {
+      "speaker": "Doctor",
+      "text": "நான் உங்களுக்கு ஒரு மருந்து வேண்டும்"
+    },
+    {
+      "speaker": "Patient",
+      "text": "நன்றி டாக்டர்"
+    }
+  ],
+  "report_data": {
+    "complaint": "Pain in the leg",
+    "symptoms": "pain in the leg, pain increasing over time",
+    "duration": "7 days, worsening over time",
+    "background_history": "N/A",
+    "past_history": "N/A",
+    "clinical_observations": "N/A",
+    "diagnosis": "Possible musculoskeletal issue, differential diagnoses include muscle strain or ligament sprain",
+    "treatment_advice": "Medication prescribed by Dr. Anupathy",
+    "action_plan": "Follow-up plan not discussed, next steps unclear",
+    "immunization_data": "N/A",
+    "pregnancy_data": "N/A",
+    "risk_indicators": "N/A",
+    "injury_mobility": "Pain in the leg, mobility not assessed",
+    "ent_findings": "N/A",
+    "verification_notes": "Patient confirmed pain in the leg, no further information",
+    "doctor_notes": "Patient has been experiencing pain in the leg for 7 days, worsening over time. No significant background or past medical history. Medication prescribed by Dr. Anupathy, but no clear follow-up plan discussed."
+  }
+}

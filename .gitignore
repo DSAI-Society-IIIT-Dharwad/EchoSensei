@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+echosensei/data/sessions/
+.env

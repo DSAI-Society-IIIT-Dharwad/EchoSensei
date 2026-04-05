@@ -1,0 +1,40 @@
+{
+  "report_id": "20260405-d4abb7",
+  "created_at": "2026-04-05T01:26:32.757040",
+  "updated_at": "2026-04-05T01:26:32.813594",
+  "status": "draft",
+  "language": "Kannada",
+  "patient_info": {
+    "name": "Madhav M K",
+    "age": "21",
+    "sex": "Male",
+    "blood_group": "AB+",
+    "contact": "7339180030",
+    "allergies": "",
+    "existing_conditions": ""
+  },
+  "transcript": [
+    {
+      "speaker": "Unknown",
+      "text": "No ASR model available."
+    }
+  ],
+  "report_data": {
+    "complaint": "Patient visited the clinic with complaints of fever and body pain.",
+    "symptoms": "Fever, body pain, headache, fatigue, loss of appetite",
+    "duration": "Symptoms started 3 days ago, with gradual worsening.",
+    "background_history": "Patient is a 21-year-old male, AB+ blood group, with no known medical history.",
+    "past_history": "N/A",
+    "clinical_observations": "Patient appears lethargic, with a temperature of 38.5°C (101.3°F).",
+    "diagnosis": "Possible viral infection, differential diagnoses include dengue fever, malaria, and typhoid fever.",
+    "treatment_advice": "Patient advised to rest, drink plenty of fluids, and take paracetamol for fever and pain.",
+    "action_plan": "Follow-up appointment in 2 days, with blood tests to confirm the diagnosis.",
+    "immunization_data": "Patient is up-to-date with all routine vaccinations.",
+    "pregnancy_data": "N/A",
+    "risk_indicators": "None identified.",
+    "injury_mobility": "N/A",
+    "ent_findings": "N/A",
+    "verification_notes": "Patient confirmed experiencing fever and body pain for the past 3 days.",
+    "doctor_notes": "Patient's symptoms are consistent with a viral infection. Will monitor for any signs of complications."
+  }
+}
