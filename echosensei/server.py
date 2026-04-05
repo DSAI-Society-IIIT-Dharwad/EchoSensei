@@ -60,7 +60,7 @@ def transcribe_and_analyze():
     audio_file.save(filepath)
 
     try:
-        target_lang = request.form.get('language', 'hi')
+        target_lang = request.form.get('language', 'auto')
         session_id = request.form.get('session_id', 'default_session')
         domain = request.form.get('domain', 'healthcare')
 
@@ -335,7 +335,10 @@ def docuflow_process_full():
         return jsonify({"error": "Empty transcript"}), 400
 
     print(f"[DocuFlow] 📋 Processing full session: {len(raw_transcript)} chars")
+    import time
+    start = time.time()
     result = process_full_session(raw_transcript, patient_info, language)
+    latency_ms = int((time.time() - start) * 1000)
 
     classified_transcript = result.get('transcript', [])
     report_data = result.get('report_data', {})
@@ -350,13 +353,14 @@ def docuflow_process_full():
     report["transcript"] = classified_transcript
     persist_report(report_id, report)
 
-    print(f"[DocuFlow] ✅ Report {report_id} generated with {len(classified_transcript)} classified turns.")
+    print(f"[DocuFlow] ✅ Report {report_id} generated with {len(classified_transcript)} classified turns in {latency_ms}ms.")
     return jsonify({
         "success": True,
         "report_id": report_id,
         "report_data": report_data,
         "transcript": classified_transcript,
-        "patient_info": patient_info
+        "patient_info": patient_info,
+        "latency_ms": latency_ms
     })
 
 

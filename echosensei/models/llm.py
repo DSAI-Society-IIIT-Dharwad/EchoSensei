@@ -2,9 +2,6 @@ import json
 import os
 import requests
 from core.rag import rag_engine
-from dotenv import load_dotenv
-load_dotenv()
-os.environ.get("GROQ_API_KEY")
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
@@ -24,9 +21,10 @@ def query_llm(prompt):
                 json={
                     "model": "llama-3.1-8b-instant",
                     "messages": [{"role": "user", "content": prompt}],
-                    "temperature": 0
+                    "temperature": 0,
+                    "max_tokens": 1024
                 },
-                timeout=30
+                timeout=15
             )
             response.raise_for_status()
             return response.json()["choices"][0]["message"]["content"]

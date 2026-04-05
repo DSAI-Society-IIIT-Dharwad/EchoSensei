@@ -1190,6 +1190,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Show classified transcript in the feed before moving to report
                     dfRenderClassifiedTranscript(DF.transcript);
 
+                    // Show latency
+                    if (reportData.latency_ms) {
+                       const latBadge = document.getElementById('df-report-latency');
+                       const latVal = document.getElementById('df-lat-val');
+                       if (latBadge && latVal) {
+                           latVal.textContent = `${(reportData.latency_ms / 1000).toFixed(2)}s`;
+                           latBadge.style.display = 'inline-block';
+                       }
+                    }
+
                     // Short delay to let user see the transcript, then move to report
                     setTimeout(() => {
                         dfSetPhase(3);

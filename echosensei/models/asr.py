@@ -109,54 +109,58 @@ def transcribe(audio_path: str, target_lang: str = "hi") -> dict:
             url = "https://api.groq.com/openai/v1/audio/transcriptions"
             headers = {"Authorization": f"Bearer {groq_api_key}"}
 
-            # Language-aware transcription prompt — extensive vocabulary priming
-            # These prompts contain real medical terms in native script to anchor Whisper
+            # ── LANGUAGE-AWARE TRANSCRIPTION PROMPTS ──────────────────────────
+            # Enriched with AI4Bharat medical vocabulary.
+            # CRITICAL: Groq Whisper enforces a HARD 896-character prompt limit.
+            # Each prompt is kept under ~850 chars for safety margin.
             lang_prompts = {
                 "ta": (
-                    "இது ஒரு மருத்துவ உரையாடல். "
-                    "வணக்கம், ஆம், இல்லை, சரி, நல்லது. "
+                    "இது மருத்துவ உரையாடல். டாக்டர் மற்றும் நோயாளி சம்பாஷணை. "
+                    "வணக்கம், ஆம், இல்லை, சரி, நல்லது, சொல்லுங்க, தெரியாது. "
                     "தலைவலி, காய்ச்சல், வயிற்றுவலி, இருமல், சளி, தொண்டை வலி, உடல்வலி. "
+                    "நெஞ்சு வலி, மூச்சு திணறல், வாந்தி, பேதி, மலச்சிக்கல், அஜீரணம். "
+                    "கண் வலி, காது வலி, மூட்டு வலி, முதுகு வலி, வீக்கம், தூக்கமின்மை. "
+                    "சர்க்கரை நோய், ரத்த அழுத்தம், ஆஸ்துமா, அலர்ஜி, தைராய்டு. "
                     "மருந்து, மாத்திரை, ஊசி, பரிசோதனை, ரத்த பரிசோதனை. "
                     "எப்போது இருந்து, எத்தனை நாள், எவ்வளவு நேரம். "
-                    "கண் வலி, காது வலி, மூக்கில் இருந்து, நெஞ்சு வலி. "
-                    "சர்க்கரை, ரத்த அழுத்தம், ஆஸ்துமா, அலர்ஜி. "
-                    "டாக்டர், நோயாளி, நோய் கண்டறிதல். "
                     "Transcribe exactly in Tamil script. Do NOT translate to English."
                 ),
                 "hi": (
-                    "यह एक चिकित्सा परामर्श है। "
-                    "नमस्ते, हाँ, नहीं, ठीक है, अच्छा। "
+                    "यह चिकित्सा परामर्श है। डॉक्टर और मरीज की बातचीत। "
+                    "नमस्ते, हाँ, नहीं, ठीक है, अच्छा, बताइए, समझ गया। "
                     "सिरदर्द, बुखार, पेट दर्द, खांसी, जुकाम, गले में दर्द, शरीर दर्द। "
+                    "सीने में दर्द, साँस फूलना, उल्टी, दस्त, कब्ज, एसिडिटी। "
+                    "आँख में दर्द, कान में दर्द, जोड़ों में दर्द, कमर दर्द, सूजन। "
+                    "शुगर, मधुमेह, ब्लड प्रेशर, अस्थमा, एलर्जी, थायराइड। "
                     "दवाई, गोली, इंजेक्शन, जाँच, खून की जाँच। "
-                    "कब से, कितने दिन, कितना समय। "
-                    "आँख में दर्द, कान में दर्द, छाती में दर्द। "
-                    "शुगर, ब्लड प्रेशर, अस्थमा, एलर्जी। "
-                    "डॉक्टर, मरीज, बीमारी, निदान। "
+                    "कब से, कितने दिन, कितना समय, रोज़। "
                     "Transcribe exactly in Devanagari script. Do NOT translate to English."
                 ),
                 "kn": (
-                    "ಇದು ವೈದ್ಯಕೀಯ ಸಮಾಲೋಚನೆ. ಡಾಕ್ಟರ್ ಮತ್ತು ರೋಗಿಯ ನಡುವಿನ ಸಂಭಾಷಣೆ. "
+                    "ಇದು ವೈದ್ಯಕೀಯ ಸಮಾಲೋಚನೆ. ಡಾಕ್ಟರ್ ಮತ್ತು ರೋಗಿಯ ಸಂಭಾಷಣೆ. "
                     "ನಮಸ್ಕಾರ, ಹೌದು, ಇಲ್ಲ, ಸರಿ, ಒಳ್ಳೆಯದು, ಆಯ್ತು, ಗೊತ್ತಿಲ್ಲ. "
                     "ತಲೆನೋವು, ಜ್ವರ, ಹೊಟ್ಟೆನೋವು, ಕೆಮ್ಮು, ನೆಗಡಿ, ಗಂಟಲು ನೋವು, ಮೈ ನೋವು. "
-                    "ಎದೆ ನೋವು, ಬೆನ್ನು ನೋವು, ಕಣ್ಣು ನೋವು, ಕಿವಿ ನೋವು, ಹಲ್ಲು ನೋವು. "
-                    "ವಾಂತಿ, ಬೇಧಿ, ಮಲಬದ್ಧತೆ, ಉಸಿರಾಟ, ನಿದ್ರೆ ಬರುವುದಿಲ್ಲ. "
-                    "ಔಷಧ, ಮಾತ್ರೆ, ಚುಚ್ಚುಮದ್ದು, ಪರೀಕ್ಷೆ, ರಕ್ತ ಪರೀಕ್ಷೆ, ಎಕ್ಸ್‌ರೇ, ಸ್ಕ್ಯಾನ್. "
-                    "ಯಾವಾಗಿನಿಂದ, ಎಷ್ಟು ದಿನ, ಎಷ್ಟು ಸಮಯ, ಎಲ್ಲಿ ನೋವು. "
+                    "ಎದೆ ನೋವು, ಉಸಿರಾಟ ತೊಂದರೆ, ವಾಂತಿ, ಬೇಧಿ, ಮಲಬದ್ಧತೆ, ಅಜೀರ್ಣ. "
+                    "ಕಣ್ಣು ನೋವು, ಕಿವಿ ನೋವು, ಮೂಳೆ ನೋವು, ಬೆನ್ನು ನೋವು, ಊತ, ನಿದ್ರೆ ಬರುವುದಿಲ್ಲ. "
                     "ಸಕ್ಕರೆ ಕಾಯಿಲೆ, ರಕ್ತದ ಒತ್ತಡ, ಆಸ್ತಮಾ, ಅಲರ್ಜಿ, ಥೈರಾಯ್ಡ್. "
-                    "ಡಾಕ್ಟರ್, ರೋಗಿ, ರೋಗನಿರ್ಣಯ, ಚಿಕಿತ್ಸೆ, ಆಸ್ಪತ್ರೆ. "
+                    "ಔಷಧ, ಮಾತ್ರೆ, ಚುಚ್ಚುಮದ್ದು, ಪರೀಕ್ಷೆ, ರಕ್ತ ಪರೀಕ್ಷೆ. "
+                    "ಯಾವಾಗಿನಿಂದ, ಎಷ್ಟು ದಿನ, ಎಷ್ಟು ಸಮಯ. "
                     "Transcribe exactly in Kannada script. Do NOT translate to English."
                 ),
                 "en": (
                     "This is a medical consultation between a doctor and patient. "
-                    "Hello, yes, no, headache, fever, stomach pain, cough, cold, sore throat. "
-                    "Medication, tablet, injection, test, blood test. "
+                    "Hello, yes, no, okay, headache, fever, stomach pain, cough, cold, sore throat. "
+                    "Chest pain, shortness of breath, vomiting, diarrhea, constipation, dizziness. "
+                    "Diabetes, hypertension, asthma, allergy, thyroid, dengue, malaria, tuberculosis. "
+                    "Medication, tablet, injection, test, blood test, X-ray, scan, ultrasound. "
+                    "Since when, how many days, how often, morning, night, before food, after food. "
                     "Transcribe in English."
                 ),
                 "auto": (
-                    "This is a medical consultation. "
-                    "Transcribe the speech exactly as spoken. "
-                    "Preserve the original language and script. Do NOT translate. "
-                    "If Tamil, use Tamil script. If Hindi, use Devanagari."
+                    "This is a medical consultation between a doctor and a patient. "
+                    "The conversation may be in Tamil, Hindi, Kannada, or English. "
+                    "Transcribe the speech exactly as spoken in its native script. "
+                    "Do NOT translate. Preserve the original language."
                 )
             }
             prompt_hint = lang_prompts.get(target_lang, lang_prompts["auto"])
@@ -169,9 +173,14 @@ def transcribe(audio_path: str, target_lang: str = "hi") -> dict:
                     "response_format": "verbose_json",
                     "prompt": prompt_hint
                 }
+                # When a user explicitly selects a language, ALWAYS enforce it
+                # This is the #1 accuracy lever — Whisper skips language detection
                 if target_lang != "auto" and target_lang in LANG_NAMES:
                     data["language"] = target_lang
-                response = requests.post(url, headers=headers, files=files, data=data, timeout=30)
+                    print(f"   [ASR] ✅ Language ENFORCED: {target_lang} ({LANG_NAMES[target_lang]})")
+                else:
+                    print(f"   [ASR] 🔍 Language auto-detect mode")
+                response = requests.post(url, headers=headers, files=files, data=data, timeout=15)
             response.raise_for_status()
             res_json = response.json()
             raw_text = res_json.get("text", "")
@@ -189,8 +198,10 @@ def transcribe(audio_path: str, target_lang: str = "hi") -> dict:
             }
             detected_lang = code_mapper.get(detected_lang, detected_lang)
             
+            # Keep detected language as-is; do NOT bias toward Tamil
             if detected_lang not in LANG_NAMES and target_lang == "auto":
-                detected_lang = "ta"  # default to Tamil for auto-detect (primary user base)
+                detected_lang = "en"  # neutral default for truly unknown languages
+                print(f"   [ASR] ⚠️ Unknown detected lang, defaulting to English")
                 
             latency_ms = int((time.time() - start) * 1000)
             lang_name = LANG_NAMES.get(detected_lang, detected_lang.upper())
@@ -200,7 +211,20 @@ def transcribe(audio_path: str, target_lang: str = "hi") -> dict:
                 "was_translated": False, "latency_ms": latency_ms
             }
         except Exception as e:
-            print(f"[ASR] ⚠️ Groq API failed, falling back locally: {e}")
+            print(f"[ASR] ⚠️ Groq API failed: {e}")
+            # If no local models are available, return error directly instead of falling through
+            if not USE_INDIC and indic_model is None and whisper_model is None:
+                latency_ms = int((time.time() - start) * 1000)
+                print(f"[ASR] ❌ No local fallback models available. Returning Groq error.")
+                return {
+                    "text": f"Transcription service temporarily unavailable. Please try again.",
+                    "detected_lang": target_lang if target_lang != "auto" else "en",
+                    "lang_name": LANG_NAMES.get(target_lang, "Unknown"),
+                    "was_translated": False,
+                    "latency_ms": latency_ms,
+                    "error": str(e)
+                }
+            print(f"[ASR] Falling back to local models...")
 
     if target_lang == "auto" or target_lang not in LANG_NAMES:
         target_lang = "hi"

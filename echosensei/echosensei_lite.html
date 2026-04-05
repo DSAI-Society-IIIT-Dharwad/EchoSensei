@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoSensei React</title>
+    <link rel="stylesheet" href="style_lite.css">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            document.body.innerHTML += '<div style="color:red; font-family:monospace; margin:20px; padding:20px; border:2px solid red; background:#ffeeee; position:relative; z-index:999999;"><h3>Fatal App Error</h3><p>' + message + '</p><p>Line: ' + lineno + '</p><p>' + (error && error.stack ? error.stack.replace(/\n/g, '<br>') : '') + '</p></div>';
+            return true;
+        };
+        window.addEventListener("unhandledrejection", function(event) {
+            document.body.innerHTML += '<div style="color:red; font-family:monospace; margin:20px; padding:20px; border:2px solid red; background:#ffeeee; position:relative; z-index:999999;"><h3>Unhandled Promise Rejection</h3><p>' + event.reason + '</p></div>';
+        });
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel" src="app_lite.jsx"></script>
+</body>
+</html>
